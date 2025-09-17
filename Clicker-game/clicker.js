@@ -61,8 +61,21 @@ function upgrade3Fun() {
     clickWeight = clickWeight + 100;
     clickCount = clickCount + 100;
     setSizeOfScore();
-    document.getElementById("upClick1").innerText =
+    document.getElementById("upClick2").innerText =
       "$" + Math.floor(upClickCost2);
     document.getElementById("clickDis").innerText = "Click: " + clickCount;
+  }
+}
+
+function upgrade4Fun() {
+  if (score >= Math.floor(upAutoCost2)) {
+    score = score - upAutoCost2;
+    upAutoCost2 = upAutoCost2 + upAutoCost2 * 1.1;
+    //////////AUTO CLICKER//////////
+    autoCount = autoCount + 10;
+    setSizeOfScore();
+    document.getElementById("upAuto1").innerText =
+      "$" + Math.floor(upAutoCost2);
+    document.getElementById("autoDis").innerText = "Autoclick: " + autoCount;
   }
 }
