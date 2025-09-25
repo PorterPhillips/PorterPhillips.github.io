@@ -2,12 +2,25 @@
 <html>
   <head>
     <title>BouncingBox</title>
-    <link rel="stylesheet" href="bouncingBox.css" />
+    <style>
+      img {
+        position: relative;
+        width: 200px;
+        height: 200px;
+        top: 200px;
+        left: 550px;
+      }
+    </style>
   </head>
 
   <body>
-    <img class="Box" src="Mango.webp" />
+    <img id="box" src="Mango.webp" />
   </body>
 </html>
 
-<script src="bouncingBox.js"></script>
+<script>
+  var topChange = ;
+  var leftChange = ;
+  document.getElementById("box").style.top = topChange + "200px";
+  document.getElementById("box").style.left = leftChange + "550px";
+</script>
