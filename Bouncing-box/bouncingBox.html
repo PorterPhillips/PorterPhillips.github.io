@@ -10,6 +10,9 @@
         top: 200px;
         left: 550px;
       }
+      body {
+        background-color: black;
+      }
     </style>
   </head>
 
@@ -19,8 +22,32 @@
 </html>
 
 <script>
-  var topChange = ;
-  var leftChange = ;
-  document.getElementById("box").style.top = topChange + "200px";
-  document.getElementById("box").style.left = leftChange + "550px";
+  let X = 550;
+  let Y = 200;
+
+  function loc() {
+    document.getElementById("box").style.left = X + "px";
+    document.getElementById("box").style.top = Y + "px";
+  }
+
+  function locChangeNE() {
+    X = X + 1;
+    Y = Y - 1;
+    loc();
+  }
+  function locChangeSE() {
+    X = X + 1;
+    Y = Y + 1;
+    loc();
+  }
+  function locChangeSW() {
+    X = X - 1;
+    Y = Y + 1;
+    loc();
+  }
+  function locChangeNW() {
+    X = X - 1;
+    Y = Y - 1;
+    loc();
+  }
 </script>
