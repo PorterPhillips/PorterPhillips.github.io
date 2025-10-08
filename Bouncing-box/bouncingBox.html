@@ -11,7 +11,7 @@
         left: 550px;
       }
       body {
-        background-color: black;
+        background-color: wheat;
       }
     </style>
   </head>
@@ -27,29 +27,28 @@
   let dirX = 1;
   let dirY = -1;
 
-  function loc() {
+  function changePositionOfBox() {
     document.getElementById("box").style.left = X + "px";
     document.getElementById("box").style.top = Y + "px";
   }
 
-  function locChange() {
+  function movementCalculation() {
     X = X + dirX;
-    Y = Y - dirY;
-    loc();
+    Y = Y + dirY;
+    changePositionOfBox();
+    if (Y <= -10) {
+      dirY = 1;
+    }
+    if (Y >= 425) {
+      dirY = -1;
+    }
+    if (X >= 1156) {
+      dirX = -1;
+    }
+    if (X <= -12) {
+      dirX = 1;
+    }
   }
 
-  if (Y <= 0) {
-    dirY = 1;
-  }
-  if (Y >= 500) {
-    dirY = 1;
-  }
-  if (X >= 600) {
-    dirY = -1;
-  }
-  if (X <= 0) {
-    dirY = 1;
-  }
-
-  setInterval(locChange, 10);
+  setInterval(movementCalculation, 10);
 </script>
