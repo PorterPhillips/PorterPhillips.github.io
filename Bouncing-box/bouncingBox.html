@@ -24,32 +24,32 @@
 <script>
   let X = 575;
   let Y = 200;
+  let dirX = 1;
+  let dirY = -1;
 
   function loc() {
     document.getElementById("box").style.left = X + "px";
     document.getElementById("box").style.top = Y + "px";
   }
 
-  function locChangeNE() {
-    X = X + 1;
-    Y = Y - 1;
-    loc();
-  }
-  function locChangeSE() {
-    X = X + 1;
-    Y = Y + 1;
-    loc();
-  }
-  function locChangeSW() {
-    X = X - 1;
-    Y = Y + 1;
-    loc();
-  }
-  function locChangeNW() {
-    X = X - 1;
-    Y = Y - 1;
+  function locChange() {
+    X = X + dirX;
+    Y = Y - dirY;
     loc();
   }
 
-  setInterval(locChangeNE, 10);
+  if (Y <= 0) {
+    dirY = 1;
+  }
+  if (Y >= 500) {
+    dirY = 1;
+  }
+  if (X >= 600) {
+    dirY = -1;
+  }
+  if (X <= 0) {
+    dirY = 1;
+  }
+
+  setInterval(locChange, 10);
 </script>
