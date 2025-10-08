@@ -11,26 +11,27 @@
         left: 550px;
       }
       body {
-        background-color: wheat;
+        background-color: black;
       }
     </style>
   </head>
 
   <body>
-    <img id="box" src="Mango.webp" />
+    <img id="mason" src="Mango.webp" />
   </body>
 </html>
 
 <script>
-  let X = 575;
-  let Y = 200;
+  let X = Math.random() * 1156;
+  let Y = Math.random() * 425;
   let dirX = 1;
   let dirY = -1;
 
   function changePositionOfBox() {
-    document.getElementById("box").style.left = X + "px";
-    document.getElementById("box").style.top = Y + "px";
+    document.getElementById("mason").style.left = X + "px";
+    document.getElementById("mason").style.top = Y + "px";
   }
+  changePositionOfBox();
 
   function movementCalculation() {
     X = X + dirX;
