@@ -77,9 +77,8 @@
     }
   }
 
-  function checkCollision(obj1, obj2) {
-    if (obj1.x > obj2.x && obj1.x < obj2.x + 100) {
-      document.getElementById(obj1.name).style.backgroundColor = "green";
+  function checkCollision(mason, mango) {
+    if (mason.x > mango.x && mason.x < mango.x + 100) {
     }
   }
 
@@ -89,15 +88,4 @@
     movementCalc(sixSeven);
     checkCollision(mason, mango, sixSeven);
   }, 1);
-
-  /*
-  |------|
-  |      |
-  |------|
-
-            |------|
-            |      |
-            |------|
-
-*/
 </script>
