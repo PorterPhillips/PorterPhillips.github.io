@@ -4,86 +4,67 @@
     <title>BouncingBox</title>
     <style>
       img {
-        position: relative;
+        position: absolute;
         width: 100px;
         height: 100px;
-        top: 200px;
-        left: 550px;
       }
       body {
-        background-color: wheat;
+        background-color: black;
+        margin: 0px;
       }
     </style>
   </head>
 
   <body>
-    <img id="mason" src="mason.webp" />
     <img id="mango" src="mango.jpeg" />
+    <img id="mason" src="mason.webp" />
   </body>
 </html>
 
 <script>
-  let X1 = Math.random() * 1156;
-  let Y1 = Math.random() * 425;
-  let X2 = Math.random() * 1156;
-  let Y2 = Math.random() * 425;
-  let dirX = 1;
-  if (Math.random() >= 0.5) {
-    dirX = -1;
-  }
-  let dirY = 1;
-  if (Math.random() >= 0.5) {
-    dirY = -1;
+  let mason = {
+    name: "mason",
+    x: Math.random() * 1156,
+    y: Math.random() * 425,
+    dirX: Math.random() >= 0.5 ? -1 : 1,
+    dirY: Math.random() >= 0.5 ? -1 : 1,
+  };
+  let mango = {
+    name: "mango",
+    x: Math.random() * 1156,
+    y: Math.random() * 425,
+    dirX: Math.random() >= 0.5 ? -1 : 1,
+    dirY: Math.random() >= 0.5 ? -1 : 1,
+  };
+
+  function changePosition(obj) {
+    document.getElementById(obj.name).style.left = obj.x + "px";
+    document.getElementById(obj.name).style.top = obj.y + "px";
   }
 
-  function changePositionOfMason() {
-    document.getElementById("mason").style.left = X + "px";
-    document.getElementById("mason").style.top = Y + "px";
-  }
-  changePositionOfMason();
+  changePosition(mason);
+  changePosition(mango);
 
-  function changePositionOfMango() {
-    document.getElementById("mango").style.left = X + "px";
-    document.getElementById("mango").style.top = Y + "px";
-  }
-  changePositionOfMango();
-
-  function movementCalcMason() {
-    X1 = X1 + dirX;
-    Y1 = Y1 + dirY;
-    changePositionOfMason();
-    if (Y1 <= -10) {
-      dirY = 1;
+  function movementCalc(obj) {
+    obj.x = obj.x + obj.dirX;
+    obj.y = obj.y + obj.dirY;
+    changePosition(obj);
+    if (obj.y <= 0) {
+      obj.dirY = 1;
     }
-    if (Y1 >= 525) {
-      dirY = -1;
+    if (obj.y >= window.innerHeight - 100) {
+      obj.dirY = -1;
     }
-    if (X1 >= 1255) {
-      dirX = -1;
+    if (obj.x >= window.innerWidth - 100) {
+      obj.dirX = -1;
     }
-    if (X1 <= -10) {
-      dirX = 1;
+    if (obj.x <= 0) {
+      obj.dirX = 1;
     }
   }
 
-  function movementCalcMango() {
-    X2 = X2 + dirX;
-    Y2 = Y2 + dirY;
-    changePositionOfMango();
-    if (Y2 <= -10) {
-      dirY = 1;
-    }
-    if (Y2 >= 525) {
-      dirY = -1;
-    }
-    if (X2 >= 1255) {
-      dirX = -1;
-    }
-    if (X2 <= -10) {
-      dirX = 1;
-    }
-  }
-
-  setInterval(movementCalcMason, 10);
-  setInterval(movementCalcMango, 10);
+  setInterval(() => {
+    movementCalc(mason);
+    movementCalc(mango);
+  }, 1);
 </script>
