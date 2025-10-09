@@ -11,6 +11,7 @@
       body {
         background-color: black;
         margin: 0px;
+        overflow: hidden;
       }
     </style>
   </head>
@@ -22,6 +23,8 @@
 </html>
 
 <script>
+  let speed = 10;
+
   let mason = {
     name: "mason",
     x: Math.random() * 1156,
@@ -31,8 +34,8 @@
   };
   let mango = {
     name: "mango",
-    x: Math.random() * 1156,
-    y: Math.random() * 425,
+    x: Math.random() * window.innerWidth,
+    y: Math.random() * window.innerHeight,
     dirX: Math.random() >= 0.5 ? -1 : 1,
     dirY: Math.random() >= 0.5 ? -1 : 1,
   };
@@ -46,11 +49,12 @@
   changePosition(mango);
 
   function movementCalc(obj) {
-    obj.x = obj.x + obj.dirX;
-    obj.y = obj.y + obj.dirY;
+    obj.x += obj.dirX * speed;
+    obj.y += obj.dirY * speed;
     changePosition(obj);
     if (obj.y <= 0) {
       obj.dirY = 1;
+      speed *= 1.1;
     }
     if (obj.y >= window.innerHeight - 100) {
       obj.dirY = -1;
@@ -63,8 +67,8 @@
     }
   }
 
-  setInterval(() => {
+  setInterval(function () {
     movementCalc(mason);
     movementCalc(mango);
-  }, 10);
+  }, 20);
 </script>
