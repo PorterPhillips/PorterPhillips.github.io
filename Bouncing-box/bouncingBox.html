@@ -79,6 +79,8 @@
 
   function checkCollision(mason, mango) {
     if (mason.x > mango.x && mason.x < mango.x + 100) {
+    obj.dirX = obj.dirX * -1
+    obj.dirY = obj.dirY * -1
     }
   }
 
