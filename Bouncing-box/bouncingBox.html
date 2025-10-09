@@ -17,32 +17,41 @@
   </head>
 
   <body>
-    <img id="mason" src="Mason.webp" />
+    <img id="mason" src="mason.webp" />
+    <img id="mango" src="mango.jpeg" />
   </body>
 </html>
 
 <script>
-  let X = Math.random() * 1156;
-  let Y = Math.random() * 425;
-  let dirX = 1
+  let X1 = Math.random() * 1156;
+  let Y1 = Math.random() * 425;
+  let X2 = Math.random() * 1156;
+  let Y2 = Math.random() * 425;
+  let dirX = 1;
   if (Math.random() >= 0.5) {
-    dirX = -1
+    dirX = -1;
   }
-  let dirY = 1
+  let dirY = 1;
   if (Math.random() >= 0.5) {
-    dirY = -1
+    dirY = -1;
   }
 
-  function changePositionOfBox() {
+  function changePositionOfMason() {
     document.getElementById("mason").style.left = X + "px";
     document.getElementById("mason").style.top = Y + "px";
   }
-  changePositionOfBox();
+  changePositionOfMason();
 
-  function movementCalculation() {
-    X = X + dirX;
-    Y = Y + dirY;
-    changePositionOfBox();
+  function changePositionOfMango() {
+    document.getElementById("mango").style.left = X + "px";
+    document.getElementById("mango").style.top = Y + "px";
+  }
+  changePositionOfMango();
+
+  function movementCalcMason() {
+    X1 = X1 + dirX;
+    Y1 = Y1 + dirY;
+    changePositionOfMason();
     if (Y <= -10) {
       dirY = 1;
     }
@@ -57,5 +66,24 @@
     }
   }
 
-  setInterval(movementCalculation, 10);
+  function movementCalcMango() {
+    X2 = X2 + dirX;
+    Y2 = Y2 + dirY;
+    changePositionOfMango();
+    if (Y <= -10) {
+      dirY = 1;
+    }
+    if (Y >= 525) {
+      dirY = -1;
+    }
+    if (X >= 1255) {
+      dirX = -1;
+    }
+    if (X <= -10) {
+      dirX = 1;
+    }
+  }
+
+  setInterval(movementCalcMason, 10);
+  setInterval(movementCalcMango, 10);
 </script>
