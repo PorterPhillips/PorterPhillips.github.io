@@ -84,13 +84,15 @@
       mason.y + 100 > mango.y &&
       mason.y < mango.y + 100
     ) {
-      if (mason.dirX !== mango.dirX) {
-        mason.dirX *= -1;
-        mango.dirX *= -1;
-      }
-      if (mason.dirY !== mango.dirY) {
-        mason.dirY *= -1;
-        mango.dirY *= -1;
+      if (mason.x + 100 > mango.x && mason.x < mango.x + 100) {
+        if (mason.dirX !== mango.dirX) {
+          mason.dirX *= -1;
+          mango.dirX *= -1;
+        }
+        if (mason.dirY !== mango.dirY) {
+          mason.dirY *= -1;
+          mango.dirY *= -1;
+        }
       }
     }
     if (
@@ -99,13 +101,15 @@
       mango.y + 100 > sixSeven.y &&
       mango.y < sixSeven.y + 100
     ) {
-      if (mango.dirX !== sixSeven.dirX) {
-        mango.dirX *= -1;
-        sixSeven.dirX *= -1;
-      }
-      if (mango.dirY !== sixSeven.dirY) {
-        mango.dirY *= -1;
-        sixSeven.dirY *= -1;
+      if (mango.x + 100 > sixSeven.x && mango.x < sixSeven.x + 100) {
+        if (mango.dirX !== sixSeven.dirX) {
+          mango.dirX *= -1;
+          sixSeven.dirX *= -1;
+        }
+        if (mango.dirY !== sixSeven.dirY) {
+          mango.dirY *= -1;
+          sixSeven.dirY *= -1;
+        }
       }
     }
     if (
@@ -114,13 +118,15 @@
       sixSeven.y + 100 > mason.y &&
       sixSeven.y < mason.y + 100
     ) {
-      if (sixSeven.dirX !== mason.dirX) {
-        sixSeven.dirX *= -1;
-        mason.dirX *= -1;
-      }
-      if (sixSeven.dirY !== mason.dirY) {
-        sixSeven.dirY *= -1;
-        mason.dirY *= -1;
+      if (sixSeven.x + 100 > mason.x && sixSeven.x < mason.x + 100) {
+        if (sixSeven.dirX !== mason.dirX) {
+          sixSeven.dirX *= -1;
+          mason.dirX *= -1;
+        }
+        if (sixSeven.dirY !== mason.dirY) {
+          sixSeven.dirY *= -1;
+          mason.dirY *= -1;
+        }
       }
     }
   }
