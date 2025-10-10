@@ -79,9 +79,9 @@
 
   function checkCollision(mason, mango, sixSeven) {
     if (
-      mason.x > mango.x &&
+      mason.x + 100 > mango.x &&
       mason.x < mango.x + 100 &&
-      mason.y > mango.y &&
+      mason.y + 100 > mango.y &&
       mason.y < mango.y + 100
     ) {
       mason.dirX = mason.dirX * -1;
@@ -90,9 +90,9 @@
       mango.dirY = mango.dirY * -1;
     }
     if (
-      mango.x > sixSeven.x &&
+      mango.x + 100 > sixSeven.x &&
       mango.x < sixSeven.x + 100 &&
-      mango.y > sixSeven.y &&
+      mango.y + 100 > sixSeven.y &&
       mango.y < sixSeven.y + 100
     ) {
       mango.dirX = mango.dirX * -1;
@@ -101,9 +101,9 @@
       sixSeven.dirY = sixSeven.dirY * -1;
     }
     if (
-      sixSeven.x > mason.x &&
+      sixSeven.x + 100 > mason.x &&
       sixSeven.x < mason.x + 100 &&
-      sixSeven.y > mason.y &&
+      sixSeven.y + 100 > mason.y &&
       sixSeven.y < mason.y + 100
     ) {
       sixSeven.dirX = sixSeven.dirX * -1;
