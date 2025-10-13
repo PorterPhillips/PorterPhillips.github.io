@@ -88,28 +88,38 @@
       mason.y + 100 > mango.y &&
       mason.y < mango.y + 100
     ){
-      var temp = mason.dirX 
+      var temp = mason.dirX
       mason.dirX = mango.dirX
       mango.dirX = temp
       var temp = mason.dirY
       mason.dirY= mango.dirX
       mango.dirY= temp
     }
+    if (
+      mango.x + 100 > sixSeven.x &&
+      mango.x < sixSeven.x + 100 &&
+      mango.y + 100 > sixSeven.y &&
+      mango.y < sixSeven.y + 100
+    ){
+      var temp = mango.dirX
+      mango.dirX = sixSeven.dirX
+      sixSeven.dirX = temp
+      var temp = mango.dirY
+      mango.dirY= sixSeven.dirX
+      sixSeven.dirY= temp
+    if (
+      sixSeven.x + 100 > mason.x &&
+      sixSeven.x < mason.x + 100 &&
+      sixSeven.y + 100 > mason.y &&
+      sixSeven.y < mason.y + 100
+    ){
+      var temp = sixSeven.dirX
+      sixSeven.dirX = mason.dirX
+      mason.dirX = temp
+      var temp = sixSeven.dirY
+      sixSeven.dirY= mason.dirX
+      mason.dirY= temp
     return;
-    if (
-      obj2.x + 100 > obj3.x &&
-      obj2.x < obj3.x + 100 &&
-      obj2.y + 100 > obj3.y &&
-      obj2.y < obj3.y + 100
-    ){
-    }
-    if (
-      obj3.x + 100 > obj1.x &&
-      obj3.x < obj1.x + 100 &&
-      obj3.y + 100 > obj1.y &&
-      obj3.y < obj1.y + 100
-    ){
-    }
   }
 
   function debugStats(){
