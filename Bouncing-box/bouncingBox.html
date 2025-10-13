@@ -107,6 +107,7 @@
       var temp = mango.dirY
       mango.dirY= sixSeven.dirX
       sixSeven.dirY= temp
+    }
     if (
       sixSeven.x + 100 > mason.x &&
       sixSeven.x < mason.x + 100 &&
@@ -120,8 +121,8 @@
       sixSeven.dirY= mason.dirX
       mason.dirY= temp
     return;
+    }
   }
-
   function debugStats(){
     document.getElementById("debugStats").innerHTML = JSON.stringify(mango);
   }
