@@ -77,20 +77,17 @@
     }
   }
 
-  function checkCollision(obj1, obj2, obj3) {
+  function checkCollision(mason, mango, sixSeven) {
     if (
-      obj1.x + 100 > obj2.x &&
-      obj1.x < obj2.x + 100 &&
-      obj1.y + 100 > obj2.y &&
-      obj1.y < obj2.y + 100
+      mason.x + 100 > mango.x &&
+      mason.x < mango.x + 100 &&
+      mason.y + 100 > mango.y &&
+      mason.y < mango.y + 100
     ) {
-      if (obj1.dirX !== obj2.dirX) {
-        obj1.dirX *= -1;
-        obj2.dirX *= -1;
-      }
-      if (obj1.dirY !== obj2.dirY) {
-        obj1.dirX *= -1;
-        obj2.dirX *= -1;
+      if (mason.dirX !== mango.dirX) {
+        mason.dirX *= -1
+        mango.dirX *= -1
+        }
       }
     }
     if (
