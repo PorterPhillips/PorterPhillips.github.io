@@ -13,10 +13,14 @@
         margin: 0px;
         overflow: hidden;
       }
+      h1 {
+        color: white;
+      }
     </style>
   </head>
 
   <body>
+    <h1 id="debugStats"></h1>
     <img id="mango" src="mango.jpeg" />
     <img id="mason" src="mason.webp" />
     <img id="sixSeven" src="67.jpeg" />
@@ -50,7 +54,7 @@
     speed: 1,
   };
 
-  function changePosition(obj) {
+  function changePosition(obj){
     document.getElementById(obj.name).style.left = obj.x + "px";
     document.getElementById(obj.name).style.top = obj.y + "px";
   }
@@ -59,17 +63,17 @@
   changePosition(mango);
   changePosition(sixSeven);
 
-  function movementCalc(obj) {
+  function movementCalc(obj){
     obj.x += obj.dirX * obj.speed;
     obj.y += obj.dirY * obj.speed;
     changePosition(obj);
-    if (obj.y <= 0) {
+    if (obj.y <= 0){
       obj.dirY = 1;
     }
-    if (obj.y >= window.innerHeight - 100) {
+    if (obj.y >= window.innerHeight - 100){
       obj.dirY = -1;
     }
-    if (obj.x >= window.innerWidth - 100) {
+    if (obj.x >= window.innerWidth - 100){
       obj.dirX = -1;
     }
     if (obj.x <= 0) {
@@ -77,39 +81,46 @@
     }
   }
 
-  function checkCollision(mason, mango, sixSeven) {
+  function checkCollision(mason, mango, sixSeven){
     if (
       mason.x + 100 > mango.x &&
       mason.x < mango.x + 100 &&
       mason.y + 100 > mango.y &&
       mason.y < mango.y + 100
-    ) {
-      if (mason.dirX !== mango.dirX) {
-        mason.dirX *= -1
-        mango.dirX *= -1
-        }
-      }
+    ){
+      var temp = mason.dirX 
+      mason.dirX = mango.dirX
+      mango.dirX = temp
+      var temp = mason.dirY
+      mason.dirY= mango.dirX
+      mango.dirY= temp
     }
+    return;
     if (
       obj2.x + 100 > obj3.x &&
       obj2.x < obj3.x + 100 &&
       obj2.y + 100 > obj3.y &&
       obj2.y < obj3.y + 100
-    ) {
+    ){
     }
     if (
       obj3.x + 100 > obj1.x &&
       obj3.x < obj1.x + 100 &&
       obj3.y + 100 > obj1.y &&
       obj3.y < obj1.y + 100
-    ) {
+    ){
     }
   }
 
-  setInterval(function () {
+  function debugStats(){
+    document.getElementById("debugStats").innerHTML = JSON.stringify(mango);
+  }
+
+  setInterval(function (){
     movementCalc(mason);
     movementCalc(mango);
     movementCalc(sixSeven);
     checkCollision(mason, mango, sixSeven);
+    debugStats();
   }, 1);
 </script>
