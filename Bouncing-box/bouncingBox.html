@@ -85,56 +85,56 @@
     if (
       mason.x + 100 > mango.x &&
       mason.x < mango.x + 100 &&
-      mason.y + 100 > mango.y &&
+        mason.y + 100 > mango.y &&
       mason.y < mango.y + 100
-    ){
-      var temp = mason.dirX
+    ){if ()
+      {var temp = mason.dirX
       mason.dirX = mango.dirX
       mango.dirX = temp
       var temp = mason.dirY
       mason.dirY= mango.dirX
-      mango.dirY= temp
+      mango.dirY= temp}
     }
     if (
       mango.x + 100 > sixSeven.x &&
       mango.x < sixSeven.x + 100 &&
       mango.y + 100 > sixSeven.y &&
       mango.y < sixSeven.y + 100
-    ){
-      var temp = mango.dirX
+    ){if ()
+      {var temp = mango.dirX
       mango.dirX = sixSeven.dirX
       sixSeven.dirX = temp
       var temp = mango.dirY
       mango.dirY= sixSeven.dirX
-      sixSeven.dirY= temp
+      sixSeven.dirY= temp}
     }
     if (
       sixSeven.x + 100 > mason.x &&
       sixSeven.x < mason.x + 100 &&
       sixSeven.y + 100 > mason.y &&
       sixSeven.y < mason.y + 100
-    ){
-      var temp = sixSeven.dirX
+    ){if ()
+      {var temp = sixSeven.dirX
       sixSeven.dirX = mason.dirX
       mason.dirX = temp
       var temp = sixSeven.dirY
       sixSeven.dirY= mason.dirX
-      mason.dirY= temp
-    return;
+      mason.dirY= temp}
+      return;
     }
   }
 
-// ALL INTERACTION COMPLETELY OPPOSITE IN DIRECTION NEED TO BE ADDRESSED SPECIFICALLY
+  // ALL INTERACTION COMPLETELY OPPOSITE IN DIRECTION NEED TO BE ADDRESSED SPECIFICALLY
 
-  function debugStats(){
-    document.getElementById("debugStats").innerHTML = JSON.stringify(mango);
-  }
+    function debugStats(){
+      document.getElementById("debugStats").innerHTML = JSON.stringify(mango);
+    }
 
-  setInterval(function (){
-    movementCalc(mason);
-    movementCalc(mango);
-    movementCalc(sixSeven);
-    checkCollision(mason, mango, sixSeven);
-    debugStats();
-  }, 1);
+    setInterval(function (){
+      movementCalc(mason);
+      movementCalc(mango);
+      movementCalc(sixSeven);
+      checkCollision(mason, mango, sixSeven);
+      debugStats();
+    }, 1);
 </script>
