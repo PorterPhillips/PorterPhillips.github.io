@@ -87,7 +87,9 @@
       mason.x < mango.x + 100 &&
         mason.y + 100 > mango.y &&
       mason.y < mango.y + 100
-    ){if ()
+    ){if (mason.dirX !== mango.dirX && mason.dirY !== mango.dirY){
+      
+    } else
       {var temp = mason.dirX
       mason.dirX = mango.dirX
       mango.dirX = temp
@@ -100,26 +102,26 @@
       mango.x < sixSeven.x + 100 &&
       mango.y + 100 > sixSeven.y &&
       mango.y < sixSeven.y + 100
-    ){if ()
-      {var temp = mango.dirX
+    ){if (){}
+      var temp = mango.dirX
       mango.dirX = sixSeven.dirX
       sixSeven.dirX = temp
       var temp = mango.dirY
       mango.dirY= sixSeven.dirX
-      sixSeven.dirY= temp}
+      sixSeven.dirY= temp
     }
     if (
       sixSeven.x + 100 > mason.x &&
       sixSeven.x < mason.x + 100 &&
       sixSeven.y + 100 > mason.y &&
       sixSeven.y < mason.y + 100
-    ){if ()
-      {var temp = sixSeven.dirX
+    ){if (){}
+      var temp = sixSeven.dirX
       sixSeven.dirX = mason.dirX
       mason.dirX = temp
       var temp = sixSeven.dirY
       sixSeven.dirY= mason.dirX
-      mason.dirY= temp}
+      mason.dirY= temp
       return;
     }
   }
