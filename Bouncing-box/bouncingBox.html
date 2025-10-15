@@ -89,6 +89,18 @@
       mason.y < mango.y + 100
     ) {
       if (mason.dirX !== mango.dirX && mason.dirY !== mango.dirY) {
+        if (mason.y > mango.y + 100) {
+          mason.dirX *= -1;
+          mango.dirX *= -1;
+        }
+        if (mason.x + 100 < mango.x) {
+          mason.dirY *= -1;
+          mango.dirY *= -1;
+        }
+        //check for each L/R interaction, or T/B interaction
+        //only change X or Y direction based on the outcome
+        if (mason.x > mango.x + 100) {
+        }
       } else {
         var temp = mason.dirX;
         mason.dirX = mango.dirX;
