@@ -24,6 +24,10 @@
     <img id="mango" src="mango.jpeg" />
     <img id="mason" src="mason.webp" />
     <img id="sixSeven" src="67.jpeg" />
+    <img
+      id="mouse"
+      src="https://t3.ftcdn.net/jpg/02/56/16/58/360_F_256165891_p7Iba4tBIbXe1dYNRdjodI8sbaENdXGI.jpg"
+    />
   </body>
 </html>
 
@@ -53,6 +57,16 @@
     speed: 1,
   };
 
+  let mouse = {
+    name: "mouse",
+    x: 0,
+    y: 0,
+    dirX: Math.random() >= 0.5 ? -1 : 1,
+    dirY: Math.random() >= 0.5 ? -1 : 1,
+    speed: 1,
+    width: 5,
+  };
+
   function changePosition(obj) {
     document.getElementById(obj.name).style.left = obj.x + "px";
     document.getElementById(obj.name).style.top = obj.y + "px";
@@ -61,6 +75,13 @@
   changePosition(mason);
   changePosition(mango);
   changePosition(sixSeven);
+
+  document.addEventListener("mousemove", mousePos);
+
+  function mousePos(e) {
+    mouse.x = e.x - 50;
+    mouse.y = e.y - 50;
+  }
 
   function movementCalc(obj) {
     obj.x += obj.dirX * obj.speed;
@@ -80,65 +101,38 @@
     }
   }
 
-  function checkCollision(mason, mango, sixSeven) {
-    //mason is touching mango
+  function checkCollision(obj1, obj2) {
     if (
-      mason.x + 100 > mango.x &&
-      mason.x < mango.x + 100 &&
-      mason.y + 100 > mango.y &&
-      mason.y < mango.y + 100
+      obj1.x + 100 > obj2.x &&
+      obj1.x < obj2.x + 100 &&
+      obj1.y + 100 > obj2.y &&
+      obj1.y < obj2.y + 100
     ) {
-      //if the images are going opposite directions
-      if (mason.dirX !== mango.dirX && mason.dirY !== mango.dirY) {
-        //find the distance between the images, is X or Y bigger?
-        var distX = mason.x - mango.x;
-        var distY = mason.y - mango.y;
+      if (true) {
+        var distX = Math.abs(obj1.x - obj2.x);
+        var distY = Math.abs(obj1.y - obj2.y);
 
         if (distX > distY) {
-          mason.dirX *= -1;
-          mango.dirX *= -1;
+          obj1.dirX *= -1;
+          obj2.dirX *= -1;
         } else {
-          mason.dirY *= -1;
-          mango.dirY *= -1;
+          obj1.dirY *= -1;
+          obj2.dirY *= -1;
         }
       } else {
-        //images are going in the same direction
-        var temp = mason.dirX;
-        mason.dirX = mango.dirX;
-        mango.dirX = temp;
-        temp = mason.dirY;
-        mason.dirY = mango.dirX;
-        mango.dirY = temp;
+        var temp = obj1.dirX;
+        obj1.dirX = obj2.dirX;
+        obj2.dirX = temp;
+        temp = obj1.dirY;
+        obj1.dirY = obj2.dirY;
+        obj2.dirY = temp;
       }
     }
-    if (
-      mango.x + 100 > sixSeven.x &&
-      mango.x < sixSeven.x + 100 &&
-      mango.y + 100 > sixSeven.y &&
-      mango.y < sixSeven.y + 100
-    ) {
-    } else {
-      var temp = mango.dirX;
-      mango.dirX = sixSeven.dirX;
-      sixSeven.dirX = temp;
-      var temp = mango.dirY;
-      mango.dirY = sixSeven.dirX;
-      sixSeven.dirY = temp;
-    }
-    if (
-      sixSeven.x + 100 > mason.x &&
-      sixSeven.x < mason.x + 100 &&
-      sixSeven.y + 100 > mason.y &&
-      sixSeven.y < mason.y + 100
-    ) {
-    } else {
-      var temp = sixSeven.dirX;
-      sixSeven.dirX = mason.dirX;
-      mason.dirX = temp;
-      var temp = sixSeven.dirY;
-      sixSeven.dirY = mason.dirX;
-      mason.dirY = temp;
-    }
+  }
+
+  function mouseBox() {
+    document.getElementById("mouse").style.left = mouse.x + "px";
+    document.getElementById("mouse").style.top = mouse.y + "px";
   }
 
   function debugStats() {
@@ -149,7 +143,13 @@
     movementCalc(mason);
     movementCalc(mango);
     movementCalc(sixSeven);
-    checkCollision(mason, mango, sixSeven);
+    mouseBox();
+    checkCollision(mason, mango);
+    checkCollision(mango, sixSeven);
+    checkCollision(mason, sixSeven);
+    checkCollision(mouse, mango);
+    checkCollision(mouse, mason);
+    checkCollision(mouse, sixSeven);
     debugStats();
   }, 1);
 </script>

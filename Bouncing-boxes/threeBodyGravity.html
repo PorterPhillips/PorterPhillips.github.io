@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>BouncingBox</title>
+    <style>
+      img {
+        position: absolute;
+        width: 100px;
+        height: 100px;
+      }
+      body {
+        background-color: black;
+        margin: 0px;
+        overflow: hidden;
+      }
+      h1 {
+        color: white;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1 id="debugStats"></h1>
+    <img id="mango" src="mango.jpeg" />
+    <img id="mason" src="mason.webp" />
+    <img id="sixSeven" src="67.jpeg" />
+    <img
+      hidden
+      id="mouse"
+      src="https://t3.ftcdn.net/jpg/02/56/16/58/360_F_256165891_p7Iba4tBIbXe1dYNRdjodI8sbaENdXGI.jpg"
+    />
+  </body>
+</html>
+
+<script>
+  const gravity = 0.001;
+
+  let mason = {
+    name: "mason",
+    x: Math.random() * window.innerWidth,
+    y: Math.random() * window.innerHeight,
+    dirX: Math.random() >= 0.5 ? -1 : 1,
+    dirY: Math.random() >= 0.5 ? -1 : 1,
+    speed: 1,
+  };
+  let mango = {
+    name: "mango",
+    x: Math.random() * window.innerWidth,
+    y: Math.random() * window.innerHeight,
+    dirX: Math.random() >= 0.5 ? -1 : 1,
+    dirY: Math.random() >= 0.5 ? -1 : 1,
+    speed: 1,
+  };
+  let sixSeven = {
+    name: "sixSeven",
+    x: Math.random() * window.innerWidth,
+    y: Math.random() * window.innerHeight,
+    dirX: Math.random() >= 0.5 ? -1 : 1,
+    dirY: Math.random() >= 0.5 ? -1 : 1,
+    speed: 1,
+  };
+
+  let mouse = {
+    name: "mouse",
+    x: 0,
+    y: 0,
+    dirX: Math.random() >= 0.5 ? -1 : 1,
+    dirY: Math.random() >= 0.5 ? -1 : 1,
+    speed: 1,
+    width: 5,
+  };
+
+  function changePosition(obj) {
+    document.getElementById(obj.name).style.left = obj.x + "px";
+    document.getElementById(obj.name).style.top = obj.y + "px";
+  }
+
+  changePosition(mason);
+  changePosition(mango);
+  changePosition(sixSeven);
+
+  document.addEventListener("mousemove", mousePos);
+
+  function mousePos(e) {
+    mouse.x = e.x - 50;
+    mouse.y = e.y - 50;
+  }
+
+  function movementCalc(obj) {
+    obj.x += obj.dirX * obj.speed;
+    obj.y += obj.dirY * obj.speed;
+    changePosition(obj);
+    wallCollision(obj);
+  }
+
+  function wallCollision(obj) {
+    if (obj.y <= 0) {
+      obj.dirY = 1;
+    }
+    if (obj.y >= window.innerHeight - 100) {
+      obj.dirY = -1;
+    }
+    if (obj.x >= window.innerWidth - 100) {
+      obj.dirX = -1;
+    }
+    if (obj.x <= 0) {
+      obj.dirX = 1;
+    }
+  }
+
+  function orbit(source, target) {
+    let distance = Math.hypot(source.x - target.x, source.y - target.y);
+    let angle = Math.atan2(source.x - target.x, source.y - target.y);
+
+    target.dirX += Math.sin(angle) * (Math.sqrt(distance) * gravity);
+    target.dirY += Math.cos(angle) * (Math.sqrt(distance) * gravity);
+  }
+
+  function mouseBox() {
+    document.getElementById("mouse").style.left = mouse.x + "px";
+    document.getElementById("mouse").style.top = mouse.y + "px";
+  }
+
+  function debugStats() {
+    document.getElementById("debugStats").innerHTML = JSON.stringify(mango);
+  }
+
+  setInterval(function () {
+    movementCalc(mason);
+    movementCalc(mango);
+    movementCalc(sixSeven);
+    mouseBox();
+    orbit(mason, mango);
+    orbit(mango, mason);
+    orbit(mason, sixSeven);
+    orbit(sixSeven, mason);
+    orbit(mango, sixSeven);
+    orbit(sixSeven, mango);
+    debugStats();
+  }, 1);
+</script>
