@@ -81,26 +81,32 @@
   }
 
   function checkCollision(mason, mango, sixSeven) {
+    //mason is touching mango
     if (
       mason.x + 100 > mango.x &&
       mason.x < mango.x + 100 &&
       mason.y + 100 > mango.y &&
       mason.y < mango.y + 100
     ) {
+      //if the images are going opposite directions
       if (mason.dirX !== mango.dirX && mason.dirY !== mango.dirY) {
-        if (mason.y > mango.y + 100 || mango.y > mason.y + 100) {
+        //find the distance between the images, is X or Y bigger?
+        var distX = mason.x - mango.x;
+        var distY = mason.y - mango.y;
+
+        if (distX > distY) {
           mason.dirX *= -1;
           mango.dirX *= -1;
-        }
-        if (mason.x + 100 < mango.x || mango.x + 100 < mason.x) {
+        } else {
           mason.dirY *= -1;
           mango.dirY *= -1;
         }
       } else {
+        //images are going in the same direction
         var temp = mason.dirX;
         mason.dirX = mango.dirX;
         mango.dirX = temp;
-        var temp = mason.dirY;
+        temp = mason.dirY;
         mason.dirY = mango.dirX;
         mango.dirY = temp;
       }
@@ -111,23 +117,13 @@
       mango.y + 100 > sixSeven.y &&
       mango.y < sixSeven.y + 100
     ) {
-      if (mango.dirX !== sixSeven.dirX && mango.dirY !== sixSeven.dirY) {
-        if (mango.y > sixSeven.y + 100 || sixSeven.y > mango.y + 100) {
-          mango.dirX *= -1;
-          sixSeven.dirX *= -1;
-        }
-        if (mango.x + 100 < sixSeven.x || sixSeven.x + 100 < mango.x) {
-          mango.dirY *= -1;
-          sixSeven.dirY *= -1;
-        }
-      } else {
-        var temp = mango.dirX;
-        mango.dirX = sixSeven.dirX;
-        sixSeven.dirX = temp;
-        var temp = mango.dirY;
-        mango.dirY = sixSeven.dirX;
-        sixSeven.dirY = temp;
-      }
+    } else {
+      var temp = mango.dirX;
+      mango.dirX = sixSeven.dirX;
+      sixSeven.dirX = temp;
+      var temp = mango.dirY;
+      mango.dirY = sixSeven.dirX;
+      sixSeven.dirY = temp;
     }
     if (
       sixSeven.x + 100 > mason.x &&
@@ -135,23 +131,13 @@
       sixSeven.y + 100 > mason.y &&
       sixSeven.y < mason.y + 100
     ) {
-      if (sixSeven.dirX !== mason.dirX && sixSeven.dirY !== mason.dirY) {
-        if (sixSeven.y > mason.y + 100 || mason.y > sixSeven.y + 100) {
-          sixSeven.dirX *= -1;
-          mason.dirX *= -1;
-        }
-        if (sixSeven.x + 100 < mason.x || mason.x + 100 < sixSeven.x) {
-          sixSeven.dirY *= -1;
-          mason.dirY *= -1;
-        }
-      } else {
-        var temp = sixSeven.dirX;
-        sixSeven.dirX = mason.dirX;
-        mason.dirX = temp;
-        var temp = sixSeven.dirY;
-        sixSeven.dirY = mason.dirX;
-        mason.dirY = temp;
-      }
+    } else {
+      var temp = sixSeven.dirX;
+      sixSeven.dirX = mason.dirX;
+      mason.dirX = temp;
+      var temp = sixSeven.dirY;
+      sixSeven.dirY = mason.dirX;
+      mason.dirY = temp;
     }
   }
 
