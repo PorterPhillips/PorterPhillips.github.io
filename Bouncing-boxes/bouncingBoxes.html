@@ -83,6 +83,11 @@
     mouse.y = e.y - 50;
   }
 
+  function mouseBox() {
+    document.getElementById("mouse").style.left = mouse.x + "px";
+    document.getElementById("mouse").style.top = mouse.y + "px";
+  }
+
   function movementCalc(obj) {
     obj.x += obj.dirX * obj.speed;
     obj.y += obj.dirY * obj.speed;
@@ -130,11 +135,6 @@
     }
   }
 
-  function mouseBox() {
-    document.getElementById("mouse").style.left = mouse.x + "px";
-    document.getElementById("mouse").style.top = mouse.y + "px";
-  }
-
   function debugStats() {
     document.getElementById("debugStats").innerHTML = JSON.stringify(mango);
   }
@@ -146,7 +146,7 @@
     mouseBox();
     checkCollision(mason, mango);
     checkCollision(mango, sixSeven);
-    checkCollision(mason, sixSeven);
+    checkCollision(sixSeven, mason);
     checkCollision(mouse, mango);
     checkCollision(mouse, mason);
     checkCollision(mouse, sixSeven);
