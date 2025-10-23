@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Nitroglyserin</title>
+  </head>
+  <body>
+    <h1 id="dihText">Guess a number between 1 and 10</h1>
+    <input type="text" id="myInput" />
+    <button id="submitButton">Submit</button>
+  </body>
+</html>
+
+<script>
+  const myInput = document.getElementById("myInput");
+  const submitButton = document.getElementById("submitButton");
+  const text = document.getElementById("dihText")
+  let randomNumber = Math.round(10 * Math.random());
+
+  console.log("random: " + randomNumber);
+
+  submitButton.addEventListener("click", () => {
+    const inputValue = Number(myInput.value);
+    console.log("User entered: " + inputValue);
+    if (inputValue === randomNumber) {
+      text.innerText = "Correct!"
+      setTimeout(()=> {
+        text.innerText = "Guess a number between 1 and 10"
+      }, 1000)
+    } else {
+      text.innerText = "Incorrect!"
+      setTimeout(()=> {
+        text.innerText = "Guess a number between 1 and 10"
+      }, 1000)
+    }
+    randomNumber = Math.round(10 * Math.random());
+    console.log("random: " + randomNumber);
+  });
+</script>
