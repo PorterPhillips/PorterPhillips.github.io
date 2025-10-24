@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>MilkClicker</title>
+    <style>
+      img {
+        float: left;
+        height: 45%;
+        width: 45%;
+        margin: 0%;
+        -webkit-user-drag: none;
+      }
+
+      .menuButton {
+        display: block;
+        margin: 0 auto;
+        width: 100%;
+        background-color: white;
+      }
+
+      #counter {
+        margin: 0%;
+        font-size: 64px;
+        font-family: "Times New Roman", Times, serif;
+      }
+
+      .Menu {
+        padding: 0px 10px;
+        text-align: center;
+        float: right;
+        border: solid;
+        background-color: lightcyan;
+      }
+
+      .Counters {
+        float: left;
+      }
+
+      h2 {
+        text-decoration: underline;
+      }
+
+      p {
+        margin: 0%;
+      }
+
+      body {
+        background-color: powderblue;
+        overflow-wrap: anywhere;
+      }
+    </style>
+  </head>
+
+  <body>
+    <p id="counter">0</p>
+    <div class="Menu">
+      <h2>Upgrades</h2>
+      <!--First Tier-->
+      <button class="menuButton" id="upgrade1">Basic Click</button>
+      <p id="upClick1">$10</p>
+      <button class="menuButton" id="upgrade2">Milkaholic</button>
+      <p id="upAuto1">$50</p>
+      <!--Second Tier-->
+      <button class="menuButton" id="upgrade3">Cool Click</button>
+      <p id="upClick2">$10</p>
+      <button class="menuButton" id="upgrade4">Mega Milkaholic</button>
+      <p id="upAuto2">$50</p>
+      <!--Third Tier-->
+      <button class="menuButton" id="upgrade5">Awesomest Click</button>
+      <p id="upClick3">$10</p>
+      <button class="menuButton" id="upgrade6">Godly Milkaholic</button>
+      <p id="upAuto3">$50</p>
+    </div>
+    <img id="carten" src="carten.png" />
+    <div class="Counters">
+      <p id="clickDis">Click: 1</p>
+      <p id="autoDis">Autoclick: 0</p>
+      <p id="rebirthDis">Rebirths: 0</p>
+    </div>
+  </body>
+</html>
+
+<script>
+  let bigScore = 0n;
+  let score = 100000000000;
+  let clickWeight = 1;
+  let autoWeight = 0;
+  let initialFontSize = 64;
+  let upClickCost1 = 10;
+  let upClickCost2 = 500;
+  let upClickCost3 = 25000;
+  let upAutoCost1 = 50;
+  let upAutoCost2 = 50;
+  let upAutoCost3 = 50;
+  let clickCount = 1;
+  let autoCount = 0;
+  let rebirthCount = 0;
+  let rebirthCost = 10000;
+  let lastUpdateTime = Date.now();
+
+  document.getElementById("carten").addEventListener("click", scoreUp);
+  document.getElementById("upgrade1").addEventListener("click", upgrade1Fun);
+  document.getElementById("upgrade2").addEventListener("click", upgrade2Fun);
+  setSizeOfScore();
+
+  function main() {
+    score += autoWeight;
+
+    if (score < Infinity) {
+      bigScore = bigScore + BigInt(Math.floor(score));
+    } else {
+      bigScore += bigScore;
+      score = 0;
+    }
+    score = score - Math.floor(score);
+    // scorePerSecond();
+    setSizeOfScore(); //also sets score text
+  }
+
+  function scorePerSecond() {
+    const now = Date.now();
+    const deltaTime = now - lastUpdateTime; // Calculate the time delta
+    lastUpdateTime = now; // Update lastUpdateTime for the next iteration
+  }
+
+  function scoreUp() {
+    score += clickWeight;
+    setSizeOfScore();
+  }
+
+  function upgrade1Fun() {
+    let storeScore = Number(bigScore);
+    if (storeScore >= Math.floor(upClickCost1)) {
+      bigScore -= BigInt(Math.floor(upClickCost1));
+      upClickCost1 += upClickCost1 * 1.2;
+      clickWeight += 1;
+      clickCount += 1;
+      setSizeOfScore();
+      document.getElementById("upClick1").innerText =
+        "$" + Math.floor(upClickCost1);
+      document.getElementById("clickDis").innerText = "Click: " + clickCount;
+    }
+  }
+
+  function upgrade2Fun() {
+    let storeScore = Number(bigScore);
+    if (storeScore >= Math.floor(upAutoCost1)) {
+      bigScore -= BigInt(Math.floor(upAutoCost1));
+      upAutoCost1 += upAutoCost1 * 1.3;
+      autoWeight += 0.001;
+      autoWeight *= 1.1;
+      autoCount += 1;
+      setSizeOfScore();
+      document.getElementById("upAuto1").innerText =
+        "$" + Math.floor(upAutoCost1);
+      document.getElementById("autoDis").innerText =
+        "Autoclick: " + autoWeight + ". per second";
+    }
+  }
+
+  function setSizeOfScore() {
+    // document.getElementById("counter").style.fontSize =
+    //   initialFontSize - Math.floor(score) / 50 + "px";
+    document.getElementById("counter").innerText = bigScore + "g";
+  }
+
+  function upgrade3Fun() {
+    let storeScore = Number(bigScore);
+    if (storeScore >= Math.floor(upClickCost2)) {
+      bigScore -= BigInt(Math.floor(upClickCost2));
+      upClickCost2 += upClickCost2 * 1.1;
+      clickWeight += 100;
+      clickCount += 100;
+      setSizeOfScore();
+      document.getElementById("upClick2").innerText =
+        "$" + Math.floor(upClickCost2);
+      document.getElementById("clickDis").innerText = "Click: " + clickCount;
+    }
+  }
+
+  function upgrade4Fun() {
+    let storeScore = Number(bigScore);
+    if (storeScore >= Math.floor(upAutoCost2)) {
+      bigScore -= BigInt(Math.floor(upAutoCost2));
+      upAutoCost2 *= 1.1;
+      autoWeight += 0.01;
+      autoCount += 10;
+      setSizeOfScore();
+      document.getElementById("upAuto1").innerText =
+        "$" + Math.floor(upAutoCost2);
+      document.getElementById("autoDis").innerText = "Autoclick: " + autoCount;
+    }
+  }
+
+  setInterval(main, 1);
+</script>
