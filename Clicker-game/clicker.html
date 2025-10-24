@@ -84,6 +84,7 @@
 <script>
   let score = 0;
   let clickWeight = 1;
+  let autoWeight = 0;
   let initialFontSize = 64;
   let upClickCost1 = 10;
   let upClickCost2 = 500;
@@ -102,16 +103,16 @@
   setSizeOfScore();
 
   function scoreUp() {
-    score = score + clickWeight;
+    score += clickWeight;
     setSizeOfScore();
   }
 
   function upgrade1Fun() {
     if (score >= Math.floor(upClickCost1)) {
-      score = score - upClickCost1;
-      upClickCost1 = upClickCost1 + upClickCost1 * 1.2;
-      clickWeight = clickWeight + 1;
-      clickCount = clickCount + 1;
+      score -= upClickCost1;
+      upClickCost1 += upClickCost1 * 1.2;
+      clickWeight += 1;
+      clickCount += 1;
       setSizeOfScore();
       document.getElementById("upClick1").innerText =
         "$" + Math.floor(upClickCost1);
@@ -121,10 +122,10 @@
 
   function upgrade2Fun() {
     if (score >= Math.floor(upAutoCost1)) {
-      score = score - upAutoCost1;
-      upAutoCost1 = upAutoCost1 + upAutoCost1 * 1.2;
-      //////////AUTO CLICKER//////////
-      autoCount = autoCount + 1;
+      score -= upAutoCost1;
+      upAutoCost1 += upAutoCost1 * 1.2;
+      autoWeight += 1;
+      autoCount += 1;
       setSizeOfScore();
       document.getElementById("upAuto1").innerText =
         "$" + Math.floor(upAutoCost1);
@@ -140,10 +141,10 @@
 
   function upgrade3Fun() {
     if (score >= Math.floor(upClickCost2)) {
-      score = score - upClickCost2;
-      upClickCost2 = upClickCost2 + upClickCost2 * 1.1;
-      clickWeight = clickWeight + 100;
-      clickCount = clickCount + 100;
+      score -= upClickCost2;
+      upClickCost2 += upClickCost2 * 1.1;
+      clickWeight += 100;
+      clickCount += 100;
       setSizeOfScore();
       document.getElementById("upClick2").innerText =
         "$" + Math.floor(upClickCost2);
@@ -153,14 +154,22 @@
 
   function upgrade4Fun() {
     if (score >= Math.floor(upAutoCost2)) {
-      score = score - upAutoCost2;
-      upAutoCost2 = upAutoCost2 + upAutoCost2 * 1.1;
-      //////////AUTO CLICKER//////////
-      autoCount = autoCount + 10;
+      score -= upAutoCost2;
+      upAutoCost2 += upAutoCost2 * 1.1;
+      autoWeight += 10;
+      autoCount += 10;
       setSizeOfScore();
       document.getElementById("upAuto1").innerText =
         "$" + Math.floor(upAutoCost2);
       document.getElementById("autoDis").innerText = "Autoclick: " + autoCount;
     }
   }
+
+  function autoClicker() {
+    score += autoWeight
+  }
+
+  setInterval(function () {
+    autoClicker()
+  }, 1000);
 </script>
