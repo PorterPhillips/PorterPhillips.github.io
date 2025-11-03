@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>squares</title>
+    <style></style>
+  </head>
+  <body>
+    <canvas id="canvas" height="800" width="1000"> </canvas>
+  </body>
+</html>
+<script>
+  let canvas = document.getElementById("canvas");
+  let ctx = canvas.getContext("2d");
+  let y = 100;
+  let x = 100;
+  let dirX = 1;
+  let dirY = 1;
+
+  function movementCalc() {
+    ctx.fillRect(100, 100, 100, 100);
+    x += dirX;
+    y += dirY;
+    if (y <= 0) {
+      dirY = 1;
+    }
+    if (y >= window.innerHeight - 100) {
+      dirY = -1;
+    }
+    if (x >= window.innerWidth - 100) {
+      dirX = -1;
+    }
+    if (x <= 0) {
+      dirX = 1;
+    }
+  }
+
+  setInterval(movementCalc(), 1);
+</script>

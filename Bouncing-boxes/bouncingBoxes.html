@@ -24,10 +24,14 @@
     <img id="mango" src="mango.jpeg" />
     <img id="mason" src="mason.webp" />
     <img id="sixSeven" src="67.jpeg" />
-    <img
-      id="mouse"
-      src="https://t3.ftcdn.net/jpg/02/56/16/58/360_F_256165891_p7Iba4tBIbXe1dYNRdjodI8sbaENdXGI.jpg"
-    />
+    <img id="niche" src="niche.jpeg" />
+    <img id="pibble" src="pibble.jpeg" />
+    <img id="blueCollar" src="blueCollar.jpeg" />
+    <img id="chickenStars" src="chickenStars.jpeg" />
+    <img id="dudeMan" src="dudeMan.jpeg" />
+    <img id="KBMechanism" src="KBMechanism.jpeg" />
+    <img id="ARLTR" src="ARLTR.jpeg" />
+    <img id="dax" src="dax.jpeg" />
   </body>
 </html>
 
@@ -56,42 +60,76 @@
     dirY: Math.random() >= 0.5 ? -1 : 1,
     speed: 1,
   };
-
-  let mouse = {
-    name: "mouse",
-    x: 0,
-    y: 0,
+  let niche = {
+    name: "niche",
+    x: Math.random() * window.innerWidth,
+    y: Math.random() * window.innerHeight,
     dirX: Math.random() >= 0.5 ? -1 : 1,
     dirY: Math.random() >= 0.5 ? -1 : 1,
     speed: 1,
-    width: 5,
+  };
+  let pibble = {
+    name: "pibble",
+    x: Math.random() * window.innerWidth,
+    y: Math.random() * window.innerHeight,
+    dirX: Math.random() >= 0.5 ? -1 : 1,
+    dirY: Math.random() >= 0.5 ? -1 : 1,
+    speed: 1,
+  };
+  let blueCollar = {
+    name: "blueCollar",
+    x: Math.random() * window.innerWidth,
+    y: Math.random() * window.innerHeight,
+    dirX: Math.random() >= 0.5 ? -1 : 1,
+    dirY: Math.random() >= 0.5 ? -1 : 1,
+    speed: 1,
+  };
+  let chickenStars = {
+    name: "chickenStars",
+    x: Math.random() * window.innerWidth,
+    y: Math.random() * window.innerHeight,
+    dirX: Math.random() >= 0.5 ? -1 : 1,
+    dirY: Math.random() >= 0.5 ? -1 : 1,
+    speed: 1,
+  };
+  let dudeMan = {
+    name: "dudeMan",
+    x: Math.random() * window.innerWidth,
+    y: Math.random() * window.innerHeight,
+    dirX: Math.random() >= 0.5 ? -1 : 1,
+    dirY: Math.random() >= 0.5 ? -1 : 1,
+    speed: 1,
+  };
+  let KBMechanism = {
+    name: "KBMechanism",
+    x: Math.random() * window.innerWidth,
+    y: Math.random() * window.innerHeight,
+    dirX: Math.random() >= 0.5 ? -1 : 1,
+    dirY: Math.random() >= 0.5 ? -1 : 1,
+    speed: 1,
+  };
+  let ARLTR = {
+    name: "ARLTR",
+    x: Math.random() * window.innerWidth,
+    y: Math.random() * window.innerHeight,
+    dirX: Math.random() >= 0.5 ? -1 : 1,
+    dirY: Math.random() >= 0.5 ? -1 : 1,
+    speed: 1,
+  };
+  let dax = {
+    name: "dax",
+    x: Math.random() * window.innerWidth,
+    y: Math.random() * window.innerHeight,
+    dirX: Math.random() >= 0.5 ? -1 : 1,
+    dirY: Math.random() >= 0.5 ? -1 : 1,
+    speed: 1,
   };
 
-  function changePosition(obj) {
+  function movementCalc(obj) {
     document.getElementById(obj.name).style.left = obj.x + "px";
     document.getElementById(obj.name).style.top = obj.y + "px";
-  }
-
-  changePosition(mason);
-  changePosition(mango);
-  changePosition(sixSeven);
-
-  document.addEventListener("mousemove", mousePos);
-
-  function mousePos(e) {
-    mouse.x = e.x - 50;
-    mouse.y = e.y - 50;
-  }
-
-  function mouseBox() {
-    document.getElementById("mouse").style.left = mouse.x + "px";
-    document.getElementById("mouse").style.top = mouse.y + "px";
-  }
-
-  function movementCalc(obj) {
     obj.x += obj.dirX * obj.speed;
     obj.y += obj.dirY * obj.speed;
-    changePosition(obj);
     if (obj.y <= 0) {
       obj.dirY = 1;
     }
@@ -143,13 +181,114 @@
     movementCalc(mason);
     movementCalc(mango);
     movementCalc(sixSeven);
+    movementCalc(niche);
+    movementCalc(pibble);
+    movementCalc(blueCollar);
+    movementCalc(chickenStars);
+    movementCalc(dudeMan);
+    movementCalc(KBMechanism);
+    movementCalc(ARLTR);
+    movementCalc(dax);
     mouseBox();
+    //mason
     checkCollision(mason, mango);
+    checkCollision(mason, sixSeven);
+    checkCollision(mason, niche);
+    checkCollision(mason, pibble);
+    checkCollision(mason, blueCollar);
+    checkCollision(mason, chickenStars);
+
+    checkCollision(mason, KBMechanism);
+    checkCollision(mason, ARLTR);
+    checkCollision(mason, dax);
+    //mango
     checkCollision(mango, sixSeven);
+    checkCollision(mango, niche);
+    checkCollision(mango, pibble);
+    checkCollision(mango, blueCollar);
+    checkCollision(mango, chickenStars);
+
+    checkCollision(mango, KBMechanism);
+    checkCollision(mango, ARLTR);
+    checkCollision(mango, dax);
+    checkCollision(mango, mason);
+    //sixSeven
+    checkCollision(sixSeven, niche);
+    checkCollision(sixSeven, pibble);
+    checkCollision(sixSeven, blueCollar);
+    checkCollision(sixSeven, chickenStars);
+
+    checkCollision(sixSeven, KBMechanism);
+    checkCollision(sixSeven, ARLTR);
+    checkCollision(sixSeven, dax);
     checkCollision(sixSeven, mason);
-    checkCollision(mouse, mango);
-    checkCollision(mouse, mason);
-    checkCollision(mouse, sixSeven);
+    checkCollision(sixSeven, mango);
+    //pibble
+    checkCollision(pibble, blueCollar);
+    checkCollision(pibble, chickenStars);
+
+    checkCollision(pibble, KBMechanism);
+    checkCollision(pibble, ARLTR);
+    checkCollision(pibble, dax);
+    checkCollision(pibble, mason);
+    checkCollision(pibble, mango);
+    checkCollision(pibble, sixSeven);
+    checkCollision(pibble, niche);
+    //blueCollar
+    checkCollision(blueCollar, chickenStars);
+
+    checkCollision(blueCollar, KBMechanism);
+    checkCollision(blueCollar, ARLTR);
+    checkCollision(blueCollar, dax);
+    checkCollision(blueCollar, mason);
+    checkCollision(blueCollar, mango);
+    checkCollision(blueCollar, sixSeven);
+    checkCollision(blueCollar, niche);
+    checkCollision(blueCollar, pibble);
+    //chickenStars
+
+    checkCollision(chickenStars, KBMechanism);
+    checkCollision(chickenStars, ARLTR);
+    checkCollision(chickenStars, dax);
+    checkCollision(chickenStars, mason);
+    checkCollision(chickenStars, mango);
+    checkCollision(chickenStars, sixSeven);
+    checkCollision(chickenStars, niche);
+    checkCollision(chickenStars, pibble);
+    checkCollision(chickenStars, blueCollar);
+    //KBMechanism
+    checkCollision(KBMechanism, ARLTR);
+    checkCollision(KBMechanism, dax);
+    checkCollision(KBMechanism, mason);
+    checkCollision(KBMechanism, mango);
+    checkCollision(KBMechanism, sixSeven);
+    checkCollision(KBMechanism, niche);
+    checkCollision(KBMechanism, pibble);
+    checkCollision(KBMechanism, blueCollar);
+    checkCollision(KBMechanism, chickenStars);
+
+    //ARLTR
+    checkCollision(ARLTR, dax);
+    checkCollision(ARLTR, mason);
+    checkCollision(ARLTR, mango);
+    checkCollision(ARLTR, sixSeven);
+    checkCollision(ARLTR, niche);
+    checkCollision(ARLTR, pibble);
+    checkCollision(ARLTR, blueCollar);
+    checkCollision(ARLTR, chickenStars);
+
+    checkCollision(ARLTR, KBMechanism);
+    //dax
+    checkCollision(dax, mason);
+    checkCollision(dax, mango);
+    checkCollision(dax, sixSeven);
+    checkCollision(dax, niche);
+    checkCollision(dax, pibble);
+    checkCollision(dax, blueCollar);
+    checkCollision(dax, chickenStars);
+    
+    checkCollision(dax, KBMechanism);
+    checkCollision(dax, ARLTR);
     debugStats();
   }, 1);
 </script>
