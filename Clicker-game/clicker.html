@@ -86,6 +86,7 @@
   let clickWeight = 1;
   let autoWeight = 0;
   let initialFontSize = 64;
+  let add = [1, 1, 1, 1, 1, 1]
   let upClickCost1 = 10;
   let upClickCost2 = 500;
   let upClickCost3 = 25000;
@@ -110,7 +111,8 @@
   function upgrade1Fun() {
     if (score >= Math.floor(upClickCost1)) {
       score -= upClickCost1;
-      upClickCost1 += upClickCost1 * 1.2;
+      upClickCost1 += add[0];
+      add[0] += 1;
       clickWeight += 1;
       clickCount += 1;
       setSizeOfScore();
@@ -123,7 +125,8 @@
   function upgrade2Fun() {
     if (score >= Math.floor(upAutoCost1)) {
       score -= upAutoCost1;
-      upAutoCost1 += upAutoCost1 * 1.2;
+      upAutoCost1 += add[1];
+      add[1] += 1;
       autoWeight += 1;
       autoCount += 1;
       setSizeOfScore();
@@ -142,7 +145,8 @@
   function upgrade3Fun() {
     if (score >= Math.floor(upClickCost2)) {
       score -= upClickCost2;
-      upClickCost2 += upClickCost2 * 1.1;
+      upClickCost2 += add[2];
+      add[2] += 100;
       clickWeight += 100;
       clickCount += 100;
       setSizeOfScore();
@@ -155,7 +159,8 @@
   function upgrade4Fun() {
     if (score >= Math.floor(upAutoCost2)) {
       score -= upAutoCost2;
-      upAutoCost2 += upAutoCost2 * 1.1;
+      upAutoCost2 += add[3];
+      add[3] += 10;
       autoWeight += 10;
       autoCount += 10;
       setSizeOfScore();
