@@ -132,15 +132,19 @@
     obj.y += obj.dirY * obj.speed;
     if (obj.y <= 0) {
       obj.dirY = 1;
+      obj.speed += 0.1;
     }
     if (obj.y >= window.innerHeight - 100) {
       obj.dirY = -1;
+      obj.speed += 0.1;
     }
     if (obj.x >= window.innerWidth - 100) {
       obj.dirX = -1;
+      obj.speed += 0.1;
     }
     if (obj.x <= 0) {
       obj.dirX = 1;
+      obj.speed += 0.1;
     }
   }
 

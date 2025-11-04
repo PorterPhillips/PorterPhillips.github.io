@@ -2,37 +2,48 @@
 <html>
   <head>
     <title>squares</title>
-    <style></style>
+    <style>
+      body {
+        margin: 0px;
+        overflow: hidden;
+      }
+    </style>
   </head>
   <body>
-    <canvas id="canvas" height="800" width="1000"> </canvas>
+    <canvas id="canvas" height="800" width="2000"> </canvas>
   </body>
 </html>
 <script>
   let canvas = document.getElementById("canvas");
   let ctx = canvas.getContext("2d");
-  let y = 100;
-  let x = 100;
+  let y = [50, 100];
+  let x = [50, 100];
   let dirX = 1;
   let dirY = 1;
+  let speed = 1;
 
   function movementCalc() {
-    ctx.fillRect(100, 100, 100, 100);
-    x += dirX;
-    y += dirY;
-    if (y <= 0) {
+    ctx.clearRect(0, 0, 2000, 2000);
+    x[0] += dirX * speed;
+    y[0] += dirY * speed;
+    ctx.fillRect(x[0], y[0], 10, 10);
+    if (y[0] <= 0) {
       dirY = 1;
+      speed += 0.1;
     }
-    if (y >= window.innerHeight - 100) {
+    if (y[0] >= window.innerHeight) {
       dirY = -1;
+      speed += 0.1;
     }
-    if (x >= window.innerWidth - 100) {
+    if (x[0] >= window.innerWidth) {
       dirX = -1;
+      speed += 0.1;
     }
-    if (x <= 0) {
+    if (x[0] <= 0) {
       dirX = 1;
+      speed += 0.1;
     }
   }
 
-  setInterval(movementCalc(), 1);
+  setInterval(movementCalc, 1);
 </script>
