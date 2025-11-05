@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>MilkClicker</title>
+    <style>
+      img {
+        float: left;
+        height: 45%;
+        width: 45%;
+        margin: 0%;
+        -webkit-user-drag: none;
+      }
+
+      .menuButton {
+        display: block;
+        margin: 0 auto;
+        width: 100%;
+        background-color: white;
+      }
+
+      #counter {
+        margin: 0%;
+        font-size: 64px;
+        font-family: "Times New Roman", Times, serif;
+      }
+
+      #Menu {
+        padding: 0px 10px;
+        text-align: center;
+        float: right;
+        border: solid;
+        background-color: lightcyan;
+      }
+
+      .Counters {
+        float: left;
+      }
+
+      h2 {
+        text-decoration: underline;
+      }
+
+      p {
+        margin: 0%;
+      }
+
+      body {
+        background-color: powderblue;
+      }
+    </style>
+  </head>
+
+  <body>
+    <p id="counter">0</p>
+    <div id="Menu">
+      <h2>Upgrades</h2>
+      <!--First Tier-->
+    </div>
+    <img id="carten" src="carten.png" />
+    <div class="Counters">
+      <p id="clickDis">Click: 1</p>
+      <p id="autoDis">Autoclick: 0</p>
+      <p id="rebirthDis">Rebirths: 0</p>
+    </div>
+  </body>
+</html>
+
+<script>
+  let upgradeNames = ["basic click", "cool click", "awesomest click"];
+  let score = 1000000000;
+  let scoreIncreasePerClick = 1;
+  let autoWeight = 0;
+  let initialFontSize = 64;
+  let htmlUpgradeButtonId = [];
+  let htmlUpgradeLabelId = [];
+  let numberOfTimesUpgradePurchased = [];
+  let upgradeCost = [];
+  let upgradePower = [];
+  let initialUpgradeCost = 10;
+  let initialUpgradePower = 1;
+  let autoCount = 0;
+  let rebirthCount = 0;
+  let rebirthCost = 10000;
+
+  document.getElementById("carten").addEventListener("click", scoreUp);
+
+  setSizeOfScore();
+  addUpgrade(initialUpgradeCost, initialUpgradePower);
+
+  function scoreUp() {
+    score += scoreIncreasePerClick;
+    setSizeOfScore();
+    upgradeManager();
+  }
+
+  function upgradeManager() {
+    let highestUpgradeCost = upgradeCost[upgradeCost.length - 1];
+    let highestUpgradePower = upgradePower[upgradePower.length - 1];
+
+    if (highestUpgradeCost * 1.3 > upgradeCostPerTeir(upgradeCost.length)) {
+      //we are comparing the most expensive upgrade to the next teir of upgrade, if they are close then create a new upgrade
+      addUpgrade(
+        upgradeCostPerTeir(upgradeCost.length),
+        upgradePowerPerTeir(upgradePower.length)
+      );
+    }
+  }
+
+  function addUpgrade(cost, power) {
+    let idOfNewUpgrade = numberOfTimesUpgradePurchased.length;
+    numberOfTimesUpgradePurchased.push(0);
+    upgradeCost.push(cost);
+    upgradePower.push(power);
+    htmlUpgradeButtonId.push("upgrade" + numberOfTimesUpgradePurchased.length);
+    htmlUpgradeLabelId.push(
+      "upgradeLabel" + numberOfTimesUpgradePurchased.length
+    );
+
+    const newUpgradeElement = document.createElement("button");
+    newUpgradeElement.setAttribute("class", "menuButton");
+    newUpgradeElement.setAttribute("id", htmlUpgradeButtonId[idOfNewUpgrade]);
+    newUpgradeElement.innerText = upgradeNames[idOfNewUpgrade];
+    newUpgradeElement.addEventListener("click", function (event) {
+      runUpgrade(idOfNewUpgrade);
+    });
+    document.getElementById("Menu").appendChild(newUpgradeElement);
+    const newUpgradeLabel = document.createElement("p");
+    newUpgradeLabel.setAttribute("id", htmlUpgradeLabelId[idOfNewUpgrade]);
+    document.getElementById("Menu").appendChild(newUpgradeLabel);
+    updateUpgradeButtonText(idOfNewUpgrade);
+    /*
+  <button class="menuButton" id="upgrade1">Basic Click</button>
+        <p id="upClick1">$10</p>
+      */
+  }
+
+  function upgradePowerIncreaseFunction(currentPower) {
+    //how much power would the next level of the upgrade have
+    return currentPower * 2;
+  }
+  function upgradeCostIncreaseFunction(currentCost) {
+    //how much would the next level of the upgrade cost to purchase
+    return currentCost * 2;
+  }
+
+  function upgradeCostPerTeir(tier) {
+    //what would the inital cost of the next upgrade cost, so upgrade1 vs upgrade2
+    return Math.max(initialUpgradeCost, initialUpgradeCost * (10 * tier));
+  }
+  function upgradePowerPerTeir(tier) {
+    return Math.max(initialUpgradePower, initialUpgradePower * (10 * tier));
+  }
+
+  function totalPowerOfAllUpgrades() {
+    let total = 0;
+    for (let i = 0; i < upgradePower.length; i++) {
+      total += upgradePower[i];
+    }
+    return total;
+  }
+
+  function runUpgrade(upgradeId) {
+    if (score >= Math.floor(upgradeCost[upgradeId])) {
+      score -= upgradeCost[upgradeId];
+      upgradeCost[upgradeId] = upgradeCostIncreaseFunction(
+        upgradeCost[upgradeId]
+      );
+      numberOfTimesUpgradePurchased[upgradeId] += 1;
+      scoreIncreasePerClick = totalPowerOfAllUpgrades();
+      setSizeOfScore();
+      updateUpgradeButtonText(upgradeId);
+      document.getElementById("clickDis").innerText =
+        "Click: " + scoreIncreasePerClick;
+      document
+        .getElementById("clickDis")
+        .setAttribute("title", "click power: " + totalPowerOfAllUpgrades());
+    }
+    upgradeManager();
+  }
+
+  function updateUpgradeButtonText(id) {
+    document.getElementById(htmlUpgradeLabelId[id]).innerText =
+      "$" + Math.floor(upgradeCost[id]);
+    document
+      .getElementById(htmlUpgradeLabelId[id])
+      .setAttribute(
+        "title",
+        "price increase: " + upgradeCostIncreaseFunction(upgradeCost[id])
+      );
+  }
+
+  function setSizeOfScore() {
+    document.getElementById("counter").style.fontSize =
+      initialFontSize - Math.floor(score) / 50 + "px";
+    document.getElementById("counter").innerText = Math.floor(score) + "g";
+  }
+
+  function autoClicker() {
+    score += autoWeight;
+  }
+
+  setInterval(function () {
+    autoClicker();
+  }, 1000);
+</script>

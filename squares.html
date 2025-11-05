@@ -16,32 +16,44 @@
 <script>
   let canvas = document.getElementById("canvas");
   let ctx = canvas.getContext("2d");
-  let y = [50, 100];
-  let x = [50, 100];
-  let dirX = 1;
-  let dirY = 1;
-  let speed = 1;
+  let y = [];
+  let x = [];
+  let size = [];
+  let dirX = [];
+  let dirY = [];
+  let speed = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
+  let speedInc = 0.1;
+
+  for (i = 0; i < 10; i++) {
+    y.push(Math.random() * window.innerHeight);
+    x.push(Math.random() * window.innerWidth);
+    dirX.push(Math.random() >= 0.5 ? -1 : 1);
+    dirY.push(Math.random() >= 0.5 ? -1 : 1);
+    size.push(Math.random() * 90 + 10);
+  }
 
   function movementCalc() {
     ctx.clearRect(0, 0, 2000, 2000);
-    x[0] += dirX * speed;
-    y[0] += dirY * speed;
-    ctx.fillRect(x[0], y[0], 10, 10);
-    if (y[0] <= 0) {
-      dirY = 1;
-      speed += 0.1;
-    }
-    if (y[0] >= window.innerHeight) {
-      dirY = -1;
-      speed += 0.1;
-    }
-    if (x[0] >= window.innerWidth) {
-      dirX = -1;
-      speed += 0.1;
-    }
-    if (x[0] <= 0) {
-      dirX = 1;
-      speed += 0.1;
+    for (i = 0; i < 10; i++) {
+      x[i] += dirX[i] * speed[i];
+      y[i] += dirY[i] * speed[i];
+      ctx.fillRect(x[i], y[i], size[i], size[i]);
+      if (y[i] <= 0) {
+        dirY[i] = 1;
+        speed[i] += speedInc;
+      }
+      if (y[i] >= window.innerHeight - size[i]) {
+        dirY[i] = -1;
+        speed[i] += speedInc;
+      }
+      if (x[i] >= window.innerWidth - size[i]) {
+        dirX[i] = -1;
+        speed[i] += speedInc;
+      }
+      if (x[i] <= 0) {
+        dirX[i] = 1;
+        speed[i] += speedInc;
+      }
     }
   }
 
