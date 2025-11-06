@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Epilepsy</title>
+    <style>
+      p {
+        font-family: Arial, Helvetica, sans-serif;
+      }
+      body {
+        background-color: black;
+        margin: 0px;
+      }
+      #sliderBox {
+        border: solid;
+        background-color: white;
+        width: 160px;
+        height: 80px;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="sliderBox">
+      <p>Roll for epilepsy</p>
+      <button type="button" id="roll">ROLL</button>
+    </div>
+  </body>
+</html>
+<script>
+  const body = document.body;
+  let randomNum = 0;
+
+  document.getElementById("roll").addEventListener("click", randomEp);
+
+  function randomEp() {
+    randomNum = Math.random() * 990 + 10
+    body.style["background-color"] = "red";
+  }
+
+  function nerfHuman() {
+    if (body.style["background-color"] === "red") {
+      body.style["background-color"] = "blue";
+    } else {
+      body.style["background-color"] = "red";
+    }
+  }
+
+  let interval = setInterval(nerfHuman, randomNum.value);
+  randomNum.onchange = (e) => {
+    clearInterval(interval);
+    interval = setInterval(nerfHuman, randomNum.value);
+  };
+</script>
