@@ -40,8 +40,8 @@
 <script>
   const body = document.body;
   const colorList = ["rgb(0,0,255)", "rgb(0,255,0)", "rgb(255,0,0)"];
-  let firstColor = null;
-  let secondColor = null;
+  let firstColor = "placeholder";
+  let secondColor = "placeholder";
 
   document.getElementById("roll").addEventListener("click", () => {
     firstColor = colorList[Math.round(Math.random() * (colorList.length - 1))];
@@ -62,7 +62,7 @@
   function toggleBackgroundColor() {
     if (body.style.backgroundColor === firstColor) {
       body.style.backgroundColor = secondColor;
-    } else {
+    } else if (body.style.backgroundColor === secondColor) {
       body.style.backgroundColor = firstColor;
     }
   }
