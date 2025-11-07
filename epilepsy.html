@@ -39,13 +39,19 @@
 </html>
 <script>
   const body = document.body;
-  const colorList = ["rgd(0,0,255)", "rgb(0,255,0)", "rgb(255,0,0)"];
+  const colorList = ["rgb(0,0,255)", "rgb(0,255,0)", "rgb(255,0,0)"];
   let firstColor = null;
   let secondColor = null;
 
   document.getElementById("roll").addEventListener("click", () => {
-    firstColor = colorList[Math.round(Math.random * 2)];
+    firstColor = colorList[Math.round(Math.random() * colorList.length - 1)];
+    secondColor = colorList[Math.round(Math.random() * colorList.length - 1)];
+    if (secondColor === firstColor) {
+      secondColor = colorList[Math.round(Math.random() * colorList.length - 1)];
+    }
     body.style.backgroundColor = firstColor;
+    document.getElementById("test").innerText =
+      firstColor + " : " + secondColor;
   });
 
   document.getElementById("stop").addEventListener("click", () => {
