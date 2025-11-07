@@ -10,44 +10,59 @@
         background-color: black;
         margin: 0px;
       }
-      #sliderBox {
+      .SliderBox {
+        position: absolute;
         border: solid;
         background-color: white;
         width: 160px;
         height: 80px;
         text-align: center;
+        left: calc(50vw - 80px);
+        top: calc(50vh - 40px);
+      }
+      #test {
+        color: white;
+      }
+      #test2 {
+        color: white;
       }
     </style>
   </head>
   <body>
-    <div id="sliderBox">
+    <div class="SliderBox">
       <p>Roll for epilepsy</p>
       <button type="button" id="roll">ROLL</button>
+      <button type="button" id="stop">STOP</button>
     </div>
+    <p id="test">TEST/TEST/TEST</p>
   </body>
 </html>
 <script>
   const body = document.body;
-  let randomNum = null;
+  const colorList = ["rgd(0,0,255)", "rgb(0,255,0)", "rgb(255,0,0)"];
+  let firstColor = null;
+  let secondColor = null;
 
   document.getElementById("roll").addEventListener("click", () => {
-    randomNum = Math.random() * 990 + 10;
-    if (body.style.backgroundColor === "black") {
-      body.style.backgroundColor === "red";
-    }
+    firstColor = colorList[Math.round(Math.random * 2)];
+    body.style.backgroundColor = firstColor;
+  });
+
+  document.getElementById("stop").addEventListener("click", () => {
+    body.style.backgroundColor = "black";
   });
 
   function nerfHuman() {
-    if (body.style.backgroundColor === "red") {
-      body.style.backgroundColor = "blue";
+    if (body.style.backgroundColor === firstColor) {
+      body.style.backgroundColor = secondColor;
     } else {
-      body.style.backgroundColor = "red";
+      body.style.backgroundColor = firstColor;
     }
   }
 
-  let interval = setInterval(nerfHuman, randomNum.value);
+  let interval = setInterval(nerfHuman, 100);
   randomNum.onchange = (e) => {
     clearInterval(interval);
-    interval = setInterval(nerfHuman, randomNum.value);
+    interval = setInterval(nerfHuman, 100);
   };
 </script>
