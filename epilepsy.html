@@ -28,20 +28,17 @@
 </html>
 <script>
   const body = document.body;
-  let randomNum = 0;
+  let randomNum = null;
 
-  document.getElementById("roll").addEventListener("click", randomEp);
-
-  function randomEp() {
-    randomNum = Math.random() * 990 + 10
-    body.style["background-color"] = "red";
-  }
+  document.getElementById("roll").addEventListener("click", (randomNum = Math.random() * 990 + 10));
 
   function nerfHuman() {
-    if (body.style["background-color"] === "red") {
-      body.style["background-color"] = "blue";
-    } else {
-      body.style["background-color"] = "red";
+    if (randomNum !== null) {
+      if (body.style["background-color"] === "red") {
+        body.style["background-color"] = "blue";
+      } else {
+        body.style["background-color"] = "red";
+      }
     }
   }
 
