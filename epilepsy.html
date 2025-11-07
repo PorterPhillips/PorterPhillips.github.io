@@ -30,15 +30,18 @@
   const body = document.body;
   let randomNum = null;
 
-  document.getElementById("roll").addEventListener("click", (randomNum = Math.random() * 990 + 10));
+  document.getElementById("roll").addEventListener("click", () => {
+    randomNum = Math.random() * 990 + 10;
+    if (body.style.backgroundColor === "black") {
+      body.style.backgroundColor === "red";
+    }
+  });
 
   function nerfHuman() {
-    if (randomNum !== null) {
-      if (body.style["background-color"] === "red") {
-        body.style["background-color"] = "blue";
-      } else {
-        body.style["background-color"] = "red";
-      }
+    if (body.style.backgroundColor === "red") {
+      body.style.backgroundColor = "blue";
+    } else {
+      body.style.backgroundColor = "red";
     }
   }
 
