@@ -44,11 +44,12 @@
   let secondColor = null;
 
   document.getElementById("roll").addEventListener("click", () => {
-    firstColor = colorList[Math.round(Math.random() * colorList.length - 1)];
-    secondColor = colorList[Math.round(Math.random() * colorList.length - 1)];
-    if (secondColor === firstColor) {
-      secondColor = colorList[Math.round(Math.random() * colorList.length - 1)];
-    }
+    firstColor = colorList[Math.round(Math.random() * (colorList.length - 1))];
+    secondColor = colorList[Math.round(Math.random() * (colorList.length - 1))];
+    do {
+      secondColor =
+        colorList[Math.round(Math.random() * (colorList.length - 1))];
+    } while (secondColor === firstColor);
     body.style.backgroundColor = firstColor;
     document.getElementById("test").innerText =
       firstColor + " : " + secondColor;
@@ -58,7 +59,7 @@
     body.style.backgroundColor = "black";
   });
 
-  function nerfHuman() {
+  function toggleBackgroundColor() {
     if (body.style.backgroundColor === firstColor) {
       body.style.backgroundColor = secondColor;
     } else {
@@ -66,9 +67,9 @@
     }
   }
 
-  let interval = setInterval(nerfHuman, 100);
-  randomNum.onchange = (e) => {
+  let interval = setInterval(toggleBackgroundColor, 100);
+  firstColor.onchange = (e) => {
     clearInterval(interval);
-    interval = setInterval(nerfHuman, 100);
+    interval = setInterval(toggleBackgroundColor, 100);
   };
 </script>
