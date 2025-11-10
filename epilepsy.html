@@ -40,36 +40,41 @@
 <script>
   const body = document.body;
   const colorList = ["rgb(0,0,255)", "rgb(0,255,0)", "rgb(255,0,0)"];
-  let firstColor = "placeholder";
-  let secondColor = "placeholder";
+  let firstColor = "black";
+  let secondColor = "black";
+  let i = 0;
+  toggleBackgroundColor();
 
   document.getElementById("roll").addEventListener("click", () => {
-    firstColor = colorList[Math.round(Math.random() * (colorList.length - 1))];
-    secondColor = colorList[Math.round(Math.random() * (colorList.length - 1))];
-    do {
-      secondColor =
-        colorList[Math.round(Math.random() * (colorList.length - 1))];
-    } while (secondColor === firstColor);
+    let colorOffset = 1;
+    if (Math.random() > 0.5) {
+      //half of the time the offset will be double, which wraps around to -1. horrible horrible code
+      colorOffset = 2;
+    }
+    firstColorIndex = Math.floor(Math.random() * 3);
+    secondColorIndex = (firstColorIndex + colorOffset) % 3;
+    firstColor = colorList[firstColorIndex];
+    secondColor = colorList[secondColorIndex];
+
     body.style.backgroundColor = firstColor;
     document.getElementById("test").innerText =
-      firstColor + " : " + secondColor;
+      firstColor +
+      " : " +
+      secondColor +
+      " !" +
+      firstColorIndex +
+      " " +
+      colorOffset;
   });
 
   document.getElementById("stop").addEventListener("click", () => {
     body.style.backgroundColor = "black";
+    firstColor = "black";
+    secondColor = "black";
   });
 
   function toggleBackgroundColor() {
-    if (body.style.backgroundColor === firstColor) {
-      body.style.backgroundColor = secondColor;
-    } else if (body.style.backgroundColor === secondColor) {
-      body.style.backgroundColor = firstColor;
-    }
+    body.style.backgroundColor = colorList[i++ % 3];
+    setTimeout(toggleBackgroundColor, 1);
   }
-
-  let interval = setInterval(toggleBackgroundColor, 100);
-  firstColor.onchange = (e) => {
-    clearInterval(interval);
-    interval = setInterval(toggleBackgroundColor, 100);
-  };
 </script>
