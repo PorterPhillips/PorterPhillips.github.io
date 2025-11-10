@@ -102,6 +102,27 @@ h3 {
   color: #454545;
 }
 
-#invis{
-        color: rgb(245, 238, 219);
-      }
+#myProject {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+#myProject li {
+  background: #fff;
+  padding: 10px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+#myProject li:hover {
+  background: #eee;
+}
+
+#myProject a {
+  text-decoration: none;
+  color: #454545;
+}
+
+#invis {
+  color: rgb(245, 238, 219);
+}
