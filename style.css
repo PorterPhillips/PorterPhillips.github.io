@@ -102,23 +102,23 @@ h3 {
   color: #454545;
 }
 
-#myProject {
+#myProjects {
   list-style-type: none;
   padding-left: 0;
 }
 
-#myProject li {
+#myProjects li {
   background: #fff;
   padding: 10px;
   border-radius: 10px;
   margin-bottom: 10px;
 }
 
-#myProject li:hover {
+#myProjects li:hover {
   background: #eee;
 }
 
-#myProject a {
+#myProjects a {
   text-decoration: none;
   color: #454545;
 }
