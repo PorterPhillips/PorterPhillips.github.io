@@ -5,6 +5,7 @@
     <style>
       body {
         background-color: rgb(50, 200, 30);
+        margin: 0px;
       }
       #player {
         position: absolute;
@@ -31,8 +32,8 @@
     speedY: 1,
   };
 
-  getPlayer.style.top = 800 + "px";
-  getPlayer.style.left = 800 + "px";
+  getPlayer.style.top = 600 + "px";
+  getPlayer.style.left = 720 + "px";
 
   //key press checks and logging them to the array
   document.addEventListener("keydown", function (event) {
@@ -48,7 +49,7 @@
     if (event.key === "d") {
       keysDown.push("d");
     }
-    testText.innerText = keysDown.join(", ");
+    testText.innerText = keysDown.join(", ") + " : " + dirX + " : " + dirY;
   });
   document.addEventListener("keyup", function (event) {
     if (event.key === "w") {
@@ -79,7 +80,7 @@
         }
       }
     }
-    testText.innerText = keysDown.join(", ");
+    testText.innerText = keysDown.join(", ") + " : " + dirX + " : " + dirY;
   });
 
   //if statements for directions
