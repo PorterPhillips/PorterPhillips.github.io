@@ -31,6 +31,9 @@
     speedY: 1,
   };
 
+  getPlayer.style.top = 800 + "px";
+  getPlayer.style.left = 800 + "px";
+
   //key press checks and logging them to the array
   document.addEventListener("keydown", function (event) {
     if (event.key === "w") {
@@ -99,8 +102,14 @@
     dirY = 0;
   }
 
-  getPlayer.style.top = player.y;
-  getPlayer.style.left = player.x;
-  player.x += player.dirX;
-  player.y += player.dirY;
+  function movement() {
+    getPlayer.style.top = player.y + "px";
+    getPlayer.style.left = player.x + "px";
+    player.x += player.dirX * player.speedX;
+    player.y += player.dirY * player.speedY;
+  }
+
+  setInterval(() => {
+    movement();
+  }, 1);
 </script>
