@@ -9,6 +9,7 @@
       }
       #player {
         position: absolute;
+        display: none;
       }
     </style>
   </head>
@@ -49,7 +50,8 @@
     if (event.key === "d") {
       keysDown.push("d");
     }
-    testText.innerText = keysDown.join(", ") + " : " + dirX + " : " + dirY;
+    testText.innerText =
+      keysDown.join(", ") + " : " + player.dirX + " : " + player.dirY;
   });
   document.addEventListener("keyup", function (event) {
     if (event.key === "w") {
@@ -80,27 +82,30 @@
         }
       }
     }
-    testText.innerText = keysDown.join(", ") + " : " + dirX + " : " + dirY;
+    testText.innerText =
+      keysDown.join(", ") + " : " + player.dirX + " : " + player.dirY;
   });
 
   //if statements for directions
-  if (keysDown.includes("w" && !"s")) {
-    dirY = -1;
-  }
-  if (keysDown.includes("s" && !"w")) {
-    dirY = 1;
-  }
-  if (keysDown.includes("a" && !"d")) {
-    dirY = -1;
-  }
-  if (keysDown.includes("d" && !"a")) {
-    dirY = 1;
-  }
-  if (keysDown.includes("w" && "s")) {
-    dirY = 0;
-  }
-  if (keysDown.includes("a" && "d")) {
-    dirY = 0;
+  function keyCheck() {
+    if (keysDown.includes("w" && !"s")) {
+      dirY = -1;
+    }
+    if (keysDown.includes("s" && !"w")) {
+      dirY = 1;
+    }
+    if (keysDown.includes("a" && !"d")) {
+      dirY = -1;
+    }
+    if (keysDown.includes("d" && !"a")) {
+      dirY = 1;
+    }
+    if (keysDown.includes("w" && "s")) {
+      dirY = 0;
+    }
+    if (keysDown.includes("a" && "d")) {
+      dirY = 0;
+    }
   }
 
   function movement() {
@@ -112,5 +117,6 @@
 
   setInterval(() => {
     movement();
+    keyCheck();
   }, 1);
 </script>
