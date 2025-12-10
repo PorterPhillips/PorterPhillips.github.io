@@ -6,24 +6,101 @@
       body {
         background-color: rgb(50, 200, 30);
       }
+      #player {
+        position: absolute;
+      }
     </style>
   </head>
-  <body></body>
+  <body>
+    <h1 id="test">TEST//TEST//TEST</h1>
+    <img id="player" src="Hornse_player.png" />
+  </body>
 </html>
 
 <script>
+  const getPlayer = document.getElementById("player");
+  const testText = document.getElementById("test");
+  let keysDown = [];
   let player = {
+    name: "player",
     x: 0,
     y: 0,
     dirX: 0,
     dirY: 0,
-    speedX: 1;
-    speedY: 1;
+    speedX: 1,
+    speedY: 1,
+  };
+
+  //key press checks and logging them to the array
+  document.addEventListener("keydown", function (event) {
+    if (event.key === "w") {
+      keysDown.push("w");
+    }
+    if (event.key === "s") {
+      keysDown.push("s");
+    }
+    if (event.key === "a") {
+      keysDown.push("a");
+    }
+    if (event.key === "d") {
+      keysDown.push("d");
+    }
+    testText.innerText = keysDown.join(", ");
+  });
+  document.addEventListener("keyup", function (event) {
+    if (event.key === "w") {
+      for (i = 0; i < keysDown.length; i++) {
+        if (keysDown[i] === "w") {
+          keysDown.splice(i, 1);
+        }
+      }
+    }
+    if (event.key === "s") {
+      for (i = 0; i < keysDown.length; i++) {
+        if (keysDown[i] === "s") {
+          keysDown.splice(i, 1);
+        }
+      }
+    }
+    if (event.key === "a") {
+      for (i = 0; i < keysDown.length; i++) {
+        if (keysDown[i] === "a") {
+          keysDown.splice(i, 1);
+        }
+      }
+    }
+    if (event.key === "d") {
+      for (i = 0; i < keysDown.length; i++) {
+        if (keysDown[i] === "d") {
+          keysDown.splice(i, 1);
+        }
+      }
+    }
+    testText.innerText = keysDown.join(", ");
+  });
+
+  //if statements for directions
+  if (keysDown.includes("w" && !"s")) {
+    dirY = -1;
+  }
+  if (keysDown.includes("s" && !"w")) {
+    dirY = 1;
+  }
+  if (keysDown.includes("a" && !"d")) {
+    dirY = -1;
+  }
+  if (keysDown.includes("d" && !"a")) {
+    dirY = 1;
+  }
+  if (keysDown.includes("w" && "s")) {
+    dirY = 0;
+  }
+  if (keysDown.includes("a" && "d")) {
+    dirY = 0;
   }
 
-  document.addEventListener('keydown', (event) => {
-    if (event.key === 'Enter') {
-    console.log('Enter key was pressed!');
-  }
-  })
+  getPlayer.style.top = player.y;
+  getPlayer.style.left = player.x;
+  player.x += player.dirX;
+  player.y += player.dirY;
 </script>
