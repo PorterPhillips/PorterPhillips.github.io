@@ -34,15 +34,12 @@
   };
   const velCap = 2;
   const velIn = 0.01;
-  const velDe = 0.02;
+  const friction = 0.02;
+  const speedAtWhichThePlayerJustLikeStopsMovingAndDosentKeepMovingYo = 0.2;
 
   function runTest() {
     testText.innerText =
-      JSON.stringify(keysDown) +
-      " : " +
-      player.velX +
-      " : " +
-      player.velY
+      JSON.stringify(keysDown) + " : " + player.velX + " : " + player.velY;
   }
 
   //key press checks and logging them to the obj
@@ -76,58 +73,52 @@
         player.velY += velIn;
       }
     } else {
-      if (player.velY < velCap) {
+      if (player.velY < -velCap) {
         player.velY = -velCap;
       } else {
         player.velY = velCap;
       }
     }
-    if (keysDown["KeyW"] && keysDown["KeyS"]) {
-      if (player.velY < 0) {
-        player.velY += velDe;
-      }
-      if (player.velY > 0) {
-        player.velY += -velDe;
-      }
-    }
-    if (!keysDown["KeyW"] && !keysDown["KeyS"]) {
-      if (player.velY < 0) {
-        player.velY += velDe;
-      }
-      if (player.velY > 0) {
-        player.velY += -velDe;
-      }
-    }
-    //VELOCITY X
-    if (player.velX > -velCap && player.velX < velCap) {
-      if (keysDown["KeyA"]) {
-        player.velX += -velIn;
-      }
-      if (keysDown["KeyD"]) {
-        player.velX += velIn;
-      }
-    } else {
-      if (player.velX < velCap) {
-        player.velX = -velCap;
+    //friction Y
+    if (
+      (keysDown["KeyW"] && keysDown["KeyS"]) ||
+      (!keysDown["KeyW"] && !keysDown["KeyS"])
+    ) {
+      if (Math.abs(player.velY < 1)) {
+        player.velY = 0;
+      } else if (player.velY > 0) {
+        player.velY += -friction;
       } else {
-        player.velX = velCap;
+        player.velY += friction;
       }
     }
-    if (keysDown["KeyA"] && keysDown["KeyD"]) {
-      if (player.velX < 0) {
-        player.velX += velDe;
-      }
-      if (player.velX > 0) {
-        player.velX += -velDe;
-      }
+  }
+  //VELOCITY X
+  if (player.velX > -velCap && player.velX < velCap) {
+    if (keysDown["KeyA"]) {
+      player.velX += -velIn;
     }
-    if (!keysDown["KeyA"] && !keysDown["KeyD"]) {
-      if (player.velX < 0) {
-        player.velX += velDe;
-      }
-      if (player.velX > 0) {
-        player.velX += -velDe;
-      }
+    if (keysDown["KeyD"]) {
+      player.velX += velIn;
+    }
+  } else {
+    if (player.velX < velCap) {
+      player.velX = -velCap;
+    } else {
+      player.velX = velCap;
+    }
+  }
+  //friction X
+  if (
+    (keysDown["KeyA"] && keysDown["KeyD"]) ||
+    (!keysDown["KeyA"] && !keysDown["KeyD"])
+  ) {
+    if (Math.abs(player.velY < 1)) {
+      player.velY = 0;
+    } else if (player.velY > 0) {
+      player.velY += -friction;
+    } else {
+      player.velY += friction;
     }
   }
 
