@@ -26,9 +26,10 @@
     name: "player",
     x: 0,
     y: 0,
-    velX: 1,
-    velY: 1,
+    velX: 0,
+    velY: 0,
   };
+  const velCap = 2;
 
   //key press checks and logging them to the obj
   document.addEventListener("keydown", (e) => {
@@ -48,47 +49,51 @@
 
   //direction and speed changes/calculations
   function velocityCalc() {
-    if (keysDown["KeyW"] && keysDown["KeyS"]) {
-      if (velY > 0) {
-        velY += -0.1;
-      } else if (velY < -0) {
-        velY += 0.1;
-      }
-    } else {
+    if (-velCap > player.velY < velCap) {
       if (keysDown["KeyW"]) {
         player.velY += -0.1;
       } else if (keysDown["KeyS"]) {
         player.velY += 0.1;
-      } else {
-        if (velY > 0) {
-          velY += -0.1;
-        } else if (velY < -0) {
-          velY += 0.1;
-        }
+      }
+    } else {
+      if (velY > 0) {
+        velY += -0.1;
+      }
+      if (velY < -0) {
+        velY += 0.1;
+      }
+    }
+    if (keysDown["KeyW"] && keysDown["KeyS"]) {
+      if (velY > 0) {
+        velY += -0.1;
+      }
+      if (velY < -0) {
+        velY += 0.1;
+      }
+    }
+    if (-velCap > player.velX < velCap) {
+      if (keysDown["KeyA"]) {
+        player.velX += -0.1;
+      } else if (keysDown["KeyD"]) {
+        player.velX += 0.1;
+      }
+    } else {
+      if (velX > 0) {
+        velX += -0.1;
+      }
+      if (velX < -0) {
+        velX += 0.1;
       }
     }
     if (keysDown["KeyA"] && keysDown["KeyD"]) {
       if (velX > 0) {
         velX += -0.1;
-      } else if (velX < 0) {
-        velX += 0.1;
       }
-    } else {
-      if (keysDown["KeyA"]) {
-        player.velX += -0.1;
-      } else if (keysDown["KeyD"]) {
-        player.velX += 0.1;
-      } else {
-        if (velX > 0) {
-          velX += -0.1;
-        } else if (velX < 0) {
-          velX += 0.1;
-        }
+      if (velX < -0) {
+        velX += 0.1;
       }
     }
   }
-
-  function acceleration() {}
 
   function movementCalc() {
     getPlayer.style.top = player.y + "px";
@@ -100,5 +105,5 @@
   setInterval(() => {
     velocityCalc();
     movementCalc();
-  }, 0.1);
+  }, 1);
 </script>
