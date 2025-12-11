@@ -34,16 +34,15 @@
   };
   const velCap = 2;
   const velIn = 0.01;
-  const velDe = 0.01;
+  const velDe = 0.02;
 
-  function runTest(insert) {
+  function runTest() {
     testText.innerText =
       JSON.stringify(keysDown) +
       " : " +
       player.velX +
       " : " +
-      player.velY +
-      " : ";
+      player.velY
   }
 
   //key press checks and logging them to the obj
@@ -135,5 +134,5 @@
   setInterval(() => {
     movementCalc();
     runTest();
-  }, 10);
+  }, 1);
 </script>
