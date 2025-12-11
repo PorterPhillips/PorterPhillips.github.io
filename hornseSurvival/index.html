@@ -67,9 +67,8 @@
     getPlayer.style.left = player.x + "px";
     player.x += player.velX;
     player.y += player.velY;
-    //velocity stuff
+    //VELOCITY Y
     if (player.velY > -velCap && player.velY < velCap) {
-      runTest("in cap");
       if (keysDown["KeyW"]) {
         player.velY += -0.1;
       }
@@ -78,43 +77,42 @@
       }
     }
     if (player.velY < -velCap || player.velY > velCap) {
-      runTest("out cap");
-      if (velY < 0) {
-        velY += 0.1;
+      if (player.velY < 0) {
+        player.velY += 0.1;
       } else {
-        velY += -0.1;
+        player.velY += -0.1;
       }
     }
     if (keysDown["KeyW"] && keysDown["KeyS"]) {
-      if (velY < 0) {
-        velY += 0.1;
+      if (player.velY < 0) {
+        player.velY += 0.1;
       } else {
-        velY += -0.1;
+        player.velY += -0.1;
       }
     }
-    /*if (player.velX > -velCap && player.velX < velCap) {
-      if (keysDown["KeyA"]) {
+    //VELOCITY X
+    if (player.velX > -velCap && player.velX < velCap) {
+      if (keysDown["KeyW"]) {
         player.velX += -0.1;
       }
-      if (keysDown["KeyD"]) {
+      if (keysDown["KeyS"]) {
         player.velX += 0.1;
       }
-    } else {
-      if (velX > 0) {
-        velX += -0.1;
-      }
-      if (velX < 0) {
-        velX += 0.1;
+    }
+    if (player.velX < -velCap || player.velX > velCap) {
+      if (player.velX < 0) {
+        player.velX += 0.1;
+      } else {
+        player.velX += -0.1;
       }
     }
-    if (keysDown["KeyA"] && keysDown["KeyD"]) {
-      if (velX > 0) {
-        velX += -0.1;
+    if (keysDown["KeyW"] && keysDown["KeyS"]) {
+      if (player.velX < 0) {
+        player.velX += 0.1;
+      } else {
+        player.velX += -0.1;
       }
-      if (velX < 0) {
-        velX += 0.1;
-      }
-    }*/
+    }
   }
 
   setInterval(() => {
