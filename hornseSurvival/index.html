@@ -73,7 +73,7 @@
         player.velY += velIn;
       }
     } else {
-      if (player.velY < -velCap) {
+      if (player.velY < velCap) {
         player.velY = -velCap;
       } else {
         player.velY = velCap;
@@ -84,11 +84,11 @@
       (keysDown["KeyW"] && keysDown["KeyS"]) ||
       (!keysDown["KeyW"] && !keysDown["KeyS"])
     ) {
-      if (Math.abs(player.velY < 1)) {
+      if (Math.abs(player.velY < 0.1)) {
         player.velY = 0;
       } else if (player.velY > 0) {
         player.velY += -friction;
-      } else {
+      } else if (player.velY < 0) {
         player.velY += friction;
       }
     }
@@ -113,12 +113,12 @@
     (keysDown["KeyA"] && keysDown["KeyD"]) ||
     (!keysDown["KeyA"] && !keysDown["KeyD"])
   ) {
-    if (Math.abs(player.velY < 1)) {
-      player.velY = 0;
-    } else if (player.velY > 0) {
-      player.velY += -friction;
-    } else {
-      player.velY += friction;
+    if (Math.abs(player.velX < 0.1)) {
+      player.velX = 0;
+    } else if (player.velX > 0) {
+      player.velX += -friction;
+    } else if (player.velY < 0) {
+      player.velX += friction;
     }
   }
 
