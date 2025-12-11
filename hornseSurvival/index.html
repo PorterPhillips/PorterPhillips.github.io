@@ -22,7 +22,7 @@
 <script>
   const getPlayer = document.getElementById("player");
   const testText = document.getElementById("test");
-  let keysDown = [];
+  let keysDown = {};
   let player = {
     name: "player",
     x: 0,
@@ -34,74 +34,40 @@
   };
 
   //key press checks and logging them to the array
-  document.addEventListener("keydown", function (event) {
-    if (event.key === "w") {
-      keysDown.push("w");
-    }
-    if (event.key === "s") {
-      keysDown.push("s");
-    }
-    if (event.key === "a") {
-      keysDown.push("a");
-    }
-    if (event.key === "d") {
-      keysDown.push("d");
+  document.addEventListener("keydown", (e) => {
+    if (!keysDown[e.code]) {
+      keysDown[e.code] = true;
     }
     testText.innerText =
       keysDown.join(", ") + " : " + player.dirX + " : " + player.dirY;
   });
-  document.addEventListener("keyup", function (event) {
-    if (event.key === "w") {
-      for (i = 0; i < keysDown.length; i++) {
-        if (keysDown[i] === "w") {
-          keysDown.splice(i, 1);
-        }
-      }
-    }
-    if (event.key === "s") {
-      for (i = 0; i < keysDown.length; i++) {
-        if (keysDown[i] === "s") {
-          keysDown.splice(i, 1);
-        }
-      }
-    }
-    if (event.key === "a") {
-      for (i = 0; i < keysDown.length; i++) {
-        if (keysDown[i] === "a") {
-          keysDown.splice(i, 1);
-        }
-      }
-    }
-    if (event.key === "d") {
-      for (i = 0; i < keysDown.length; i++) {
-        if (keysDown[i] === "d") {
-          keysDown.splice(i, 1);
-        }
-      }
-    }
+  document.addEventListener("keyup", (e) => {
+    pressedKeys[e.code] = false;
     testText.innerText =
       keysDown.join(", ") + " : " + player.dirX + " : " + player.dirY;
   });
 
   //if statements for directions
   function keyCheck() {
-    if (keysDown.includes("w" && !"s")) {
-      player.dirY = -1;
-    }
-    if (keysDown.includes("s" && !"w")) {
-      player.dirY = 1;
-    }
-    if (keysDown.includes("a" && !"d")) {
-      player.dirX = -1;
-    }
-    if (keysDown.includes("d" && !"a")) {
-      player.dirX = 1;
-    }
-    if (keysDown.includes("w" && "s")) {
-      player.dirY = 0;
-    }
-    if (keysDown.includes("a" && "d")) {
-      player.dirX = 0;
+    for (i = 0; i < keyDown.length; i++) {
+      if (keysDown["KeyW"]) {
+        player.dirY = -1;
+      }
+      if (keysDown["KeyS"]) {
+        player.dirY = 1;
+      }
+      if (keysDown["KeyA"]) {
+        player.dirX = -1;
+      }
+      if (keysDown["KeyD"]) {
+        player.dirX = 1;
+      }
+      if (keysDown["KeyW"] && keysDown["KeyS"]) {
+        player.dirY = 0;
+      }
+      if (keysDown["KeyA"] && keysDown["KeyD"]) {
+        player.dirX = 0;
+      }
     }
   }
 
