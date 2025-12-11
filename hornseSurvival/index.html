@@ -9,7 +9,6 @@
       }
       #player {
         position: absolute;
-        display: none;
       }
     </style>
   </head>
@@ -38,36 +37,38 @@
     if (!keysDown[e.code]) {
       keysDown[e.code] = true;
     }
+    keyCheck();
     testText.innerText =
-      keysDown.join(", ") + " : " + player.dirX + " : " + player.dirY;
+      JSON.stringify(keysDown) + " : " + player.dirX + " : " + player.dirY;
   });
   document.addEventListener("keyup", (e) => {
-    pressedKeys[e.code] = false;
+    keysDown[e.code] = false;
+    keyCheck();
     testText.innerText =
-      keysDown.join(", ") + " : " + player.dirX + " : " + player.dirY;
+      JSON.stringify(keysDown) + " : " + player.dirX + " : " + player.dirY;
   });
 
   //if statements for directions
   function keyCheck() {
-    for (i = 0; i < keyDown.length; i++) {
-      if (keysDown["KeyW"]) {
-        player.dirY = -1;
-      }
-      if (keysDown["KeyS"]) {
-        player.dirY = 1;
-      }
-      if (keysDown["KeyA"]) {
-        player.dirX = -1;
-      }
-      if (keysDown["KeyD"]) {
-        player.dirX = 1;
-      }
-      if (keysDown["KeyW"] && keysDown["KeyS"]) {
-        player.dirY = 0;
-      }
-      if (keysDown["KeyA"] && keysDown["KeyD"]) {
-        player.dirX = 0;
-      }
+    if (keysDown["KeyW"]) {
+      player.dirY = -1;
+    } else if (keysDown["KeyS"]) {
+      player.dirY = 1;
+    } else {
+      player.dirY = 0;
+    }
+    if (keysDown["KeyA"]) {
+      player.dirX = -1;
+    } else if (keysDown["KeyD"]) {
+      player.dirX = 1;
+    } else {
+      player.dirX = 0;
+    }
+    if (keysDown["KeyW"] && keysDown["KeyS"]) {
+      player.dirY = 0;
+    }
+    if (keysDown["KeyA"] && keysDown["KeyD"]) {
+      player.dirX = 0;
     }
   }
 
@@ -80,6 +81,5 @@
 
   setInterval(() => {
     movement();
-    keyCheck();
-  }, 1);
+  }, 0.1);
 </script>
