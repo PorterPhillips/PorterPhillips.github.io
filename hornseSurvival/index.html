@@ -31,25 +31,30 @@
   };
   const velCap = 2;
 
+  function runTest() {
+    testText.innerText =
+      JSON.stringify(keysDown) + " : " + player.velX + " : " + player.velY;
+  }
+
   //key press checks and logging them to the obj
   document.addEventListener("keydown", (e) => {
     if (!keysDown[e.code]) {
       keysDown[e.code] = true;
     }
+    runTest();
     velocityCalc();
-    testText.innerText =
-      JSON.stringify(keysDown) + " : " + player.dirX + " : " + player.dirY;
+    runTest();
   });
   document.addEventListener("keyup", (e) => {
     keysDown[e.code] = false;
+    runTest();
     velocityCalc();
-    testText.innerText =
-      JSON.stringify(keysDown) + " : " + player.dirX + " : " + player.dirY;
+    runTest();
   });
 
   //direction and speed changes/calculations
   function velocityCalc() {
-    if (-velCap > player.velY < velCap) {
+    if (player.velY > -velCap && player.velY < velCap) {
       if (keysDown["KeyW"]) {
         player.velY += -0.1;
       } else if (keysDown["KeyS"]) {
@@ -59,7 +64,7 @@
       if (velY > 0) {
         velY += -0.1;
       }
-      if (velY < -0) {
+      if (velY < 0) {
         velY += 0.1;
       }
     }
@@ -67,11 +72,11 @@
       if (velY > 0) {
         velY += -0.1;
       }
-      if (velY < -0) {
+      if (velY < 0) {
         velY += 0.1;
       }
     }
-    if (-velCap > player.velX < velCap) {
+    if (player.velX > -velCap && player.velX < velCap) {
       if (keysDown["KeyA"]) {
         player.velX += -0.1;
       } else if (keysDown["KeyD"]) {
@@ -81,7 +86,7 @@
       if (velX > 0) {
         velX += -0.1;
       }
-      if (velX < -0) {
+      if (velX < 0) {
         velX += 0.1;
       }
     }
@@ -89,7 +94,7 @@
       if (velX > 0) {
         velX += -0.1;
       }
-      if (velX < -0) {
+      if (velX < 0) {
         velX += 0.1;
       }
     }
