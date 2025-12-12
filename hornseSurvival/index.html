@@ -8,16 +8,20 @@
         margin: 0px;
       }
       #player {
-        position: absolute;
+        display: none;
       }
       #test {
         white-space: pre-line;
+      }
+      #canvas {
+        background: blue;
       }
     </style>
   </head>
   <body>
     <h1 id="test">TEST//TEST//TEST</h1>
     <img id="player" src="Hornse_player.png" />
+      <canvas id="canvas" width="100" height="100"></canvas>
   </body>
 </html>
 
@@ -35,14 +39,13 @@
   const velCap = 2;
   const velIn = 0.01;
   const friction = 0.02;
-  const speedAtWhichThePlayerJustLikeStopsMovingAndDosentKeepMovingYo = 0.2;
 
   function runTest() {
     testText.innerText =
       JSON.stringify(keysDown) + " : " + player.velX + " : " + player.velY;
   }
 
-  //key press checks and logging them to the obj
+  //KEY UP AND KEY DOWN
   document.addEventListener("keydown", (e) => {
     if (!keysDown[e.code]) {
       keysDown[e.code] = true;
@@ -59,7 +62,7 @@
   });
 
   function movementCalc() {
-    //change position
+    //POSITION CHANGE
     getPlayer.style.top = player.y + "px";
     getPlayer.style.left = player.x + "px";
     player.x += player.velX;
@@ -79,7 +82,7 @@
         player.velY = velCap;
       }
     }
-    //friction Y
+    //FRICTION Y
     if (
       (keysDown["KeyW"] && keysDown["KeyS"]) ||
       (!keysDown["KeyW"] && !keysDown["KeyS"])
@@ -108,7 +111,7 @@
       player.velX = velCap;
     }
   }
-  //friction X
+  //FRICTION X
   if (
     (keysDown["KeyA"] && keysDown["KeyD"]) ||
     (!keysDown["KeyA"] && !keysDown["KeyD"])
@@ -117,7 +120,7 @@
       player.velX = 0;
     } else if (player.velX > 0) {
       player.velX += -friction;
-    } else if (player.velY < 0) {
+    } else if (player.velX < 0) {
       player.velX += friction;
     }
   }
