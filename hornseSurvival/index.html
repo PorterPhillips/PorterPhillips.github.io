@@ -7,26 +7,25 @@
         background-color: rgb(50, 200, 30);
         margin: 0px;
       }
-      #player {
-        display: none;
-      }
-      #test {
-        white-space: pre-line;
-      }
-      #canvas {
-        background: blue;
+      #canvas1 {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 600px;
+        height: 600px;
+        background-color: white;
       }
     </style>
   </head>
   <body>
     <h1 id="test">TEST//TEST//TEST</h1>
-    <img id="player" src="Hornse_player.png" />
-      <canvas id="canvas" width="100" height="100"></canvas>
+    <canvas id="canvas1"></canvas>
   </body>
 </html>
 
 <script>
-  const getPlayer = document.getElementById("player");
+  const getPlayer = document.getElementById("");
   const testText = document.getElementById("test");
   let keysDown = {};
   let player = {
@@ -39,6 +38,23 @@
   const velCap = 2;
   const velIn = 0.01;
   const friction = 0.02;
+  //CANVAS STUFF
+  const canvas = document.getElementById("canvas1");
+  const ctx = canvas.getContext("2d");
+  const CANVAS_WIDTH = 600;
+  const CANVAS_HEIGHT = 600;
+  canvas.height = CANVAS_HEIGHT;
+  canvas.width = CANVAS_WIDTH;
+  const playerImage = new Image();
+  playerImage.src = "Hornse_player.png";
+
+  function animate() {
+    ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+    // (image, sx, sy, sw, sh, dx, dy, dw, dh)
+    ctx.drawImage(playerImage, 0, 0, 50, 50, 0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+    requestAnimationFrame(animate);
+  }
+  animate();
 
   function runTest() {
     testText.innerText =
@@ -63,8 +79,8 @@
 
   function movementCalc() {
     //POSITION CHANGE
-    getPlayer.style.top = player.y + "px";
-    getPlayer.style.left = player.x + "px";
+    //getPlayer.style.top = player.y + "px";
+    //getPlayer.style.left = player.x + "px";
     player.x += player.velX;
     player.y += player.velY;
     //VELOCITY Y
