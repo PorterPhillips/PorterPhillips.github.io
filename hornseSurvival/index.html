@@ -6,15 +6,16 @@
       body {
         background-color: rgb(50, 200, 30);
         margin: 0px;
+        padding: 0px;
       }
       #canvas1 {
+        display: block;
         position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 600px;
-        height: 600px;
-        background-color: white;
+        top: 0px;
+        left: 0px;
+        z-index: -1;
+        height: 100%;
+        width: 100%;
       }
     </style>
   </head>
@@ -28,10 +29,8 @@
   //CANVAS STUFF
   const canvas = document.getElementById("canvas1");
   const ctx = canvas.getContext("2d");
-  const CANVAS_WIDTH = 600;
-  const CANVAS_HEIGHT = 600;
-  canvas.height = CANVAS_HEIGHT;
-  canvas.width = CANVAS_WIDTH;
+  canvas.height = window.innerHeight + "px";
+  canvas.width = window.innerWidth + "px";
 
   const playerImage = new Image();
   playerImage.src = "Hornse_player.png";
@@ -58,7 +57,7 @@
   ];
 
   function animate() {
-    ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+    ctx.clearRect(0, 0, canvas.width, canvas,height);
     let position = Math.floor(gameFrame / staggerFrames) % spriteAnimations[playerState].loc.length;
     let frameX = spriteWidth * position;
     let frameY = 0;
