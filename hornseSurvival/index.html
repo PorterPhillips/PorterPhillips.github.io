@@ -25,19 +25,6 @@
 </html>
 
 <script>
-  const getPlayer = document.getElementById("");
-  const testText = document.getElementById("test");
-  let keysDown = {};
-  let player = {
-    name: "player",
-    x: 0,
-    y: 0,
-    velX: 0,
-    velY: 0,
-  };
-  const velCap = 2;
-  const velIn = 0.01;
-  const friction = 0.02;
   //CANVAS STUFF
   const canvas = document.getElementById("canvas1");
   const ctx = canvas.getContext("2d");
@@ -45,20 +32,71 @@
   const CANVAS_HEIGHT = 600;
   canvas.height = CANVAS_HEIGHT;
   canvas.width = CANVAS_WIDTH;
+
   const playerImage = new Image();
   playerImage.src = "Hornse_player.png";
+  const spriteWidth = 50;
+  const spriteHeight = 50;
+  let playerState = "walk";
+
+  let gameFrame = 0;
+  const staggerFrames = 35;
+  const spriteAnimations = [
+    "idle" = {
+      loc: [
+        {x: 0, y: 0,}
+      ]
+    },
+    "walk" = {
+      loc: [
+        {x: 50, y: 0,},
+        {x: 100, y: 0,},
+        {x: 150, y: 0,},
+        {x: 200, y: 0,}
+      ]
+    }
+  ];
 
   function animate() {
     ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+    let position = Math.floor(gameFrame / staggerFrames) % spriteAnimations[playerState].loc.length;
+    let frameX = spriteWidth * position;
+    let frameY = 0;
     // (image, sx, sy, sw, sh, dx, dy, dw, dh)
-    ctx.drawImage(playerImage, 0, 0, 50, 50, 0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+    ctx.drawImage(
+      playerImage,
+      frameX,
+      0,
+      spriteWidth,
+      spriteHeight,
+      0,
+      0,
+      spriteWidth,
+      spriteHeight
+    );
+    gameFrame++;
     requestAnimationFrame(animate);
   }
   animate();
 
+  //NOT CANVAS STUFF
+  const getPlayer = document.getElementById("");
+  const testText = document.getElementById("test");
+  let keysDown = {};
+  let player = {
+    name: "player",
+    x: 0,
+    y: 0,
+    accelX: 0,
+    accelY: 0,
+  };
+  const accelMax = 2;
+  const accelInc = 0.01;
+  const friction = 0.02;
+
   function runTest() {
     testText.innerText =
-      JSON.stringify(keysDown) + " : " + player.velX + " : " + player.velY;
+      JSON.stringify(keysDown) + " : " + player.accelX + " : " + player.accelY;
   }
 
   //KEY UP AND KEY DOWN
@@ -81,21 +119,21 @@
     //POSITION CHANGE
     //getPlayer.style.top = player.y + "px";
     //getPlayer.style.left = player.x + "px";
-    player.x += player.velX;
-    player.y += player.velY;
+    player.x += player.accelX;
+    player.y += player.accelY;
     //VELOCITY Y
-    if (player.velY > -velCap && player.velY < velCap) {
+    if (player.accelY > -accelMax && player.accelY < accelMax) {
       if (keysDown["KeyW"]) {
-        player.velY += -velIn;
+        player.accelY += -accelInc;
       }
       if (keysDown["KeyS"]) {
-        player.velY += velIn;
+        player.accelY += accelInc;
       }
     } else {
-      if (player.velY < velCap) {
-        player.velY = -velCap;
+      if (player.accelY < accelMax) {
+        player.accelY = -accelMax;
       } else {
-        player.velY = velCap;
+        player.accelY = accelMax;
       }
     }
     //FRICTION Y
@@ -103,28 +141,28 @@
       (keysDown["KeyW"] && keysDown["KeyS"]) ||
       (!keysDown["KeyW"] && !keysDown["KeyS"])
     ) {
-      if (Math.abs(player.velY < 0.1)) {
-        player.velY = 0;
-      } else if (player.velY > 0) {
-        player.velY += -friction;
-      } else if (player.velY < 0) {
-        player.velY += friction;
+      if (Math.abs(player.accelY < 0.1)) {
+        player.accelY = 0;
+      } else if (player.accelY > 0) {
+        player.accelY += -friction;
+      } else if (player.accelY < 0) {
+        player.accelY += friction;
       }
     }
   }
   //VELOCITY X
-  if (player.velX > -velCap && player.velX < velCap) {
+  if (player.accelX > -accelMax && player.accelX < accelMax) {
     if (keysDown["KeyA"]) {
-      player.velX += -velIn;
+      player.accelX += -accelInc;
     }
     if (keysDown["KeyD"]) {
-      player.velX += velIn;
+      player.accelX += accelInc;
     }
   } else {
-    if (player.velX < velCap) {
-      player.velX = -velCap;
+    if (player.accelX < accelMax) {
+      player.accelX = -accelMax;
     } else {
-      player.velX = velCap;
+      player.accelX = accelMax;
     }
   }
   //FRICTION X
@@ -132,12 +170,12 @@
     (keysDown["KeyA"] && keysDown["KeyD"]) ||
     (!keysDown["KeyA"] && !keysDown["KeyD"])
   ) {
-    if (Math.abs(player.velX < 0.1)) {
-      player.velX = 0;
-    } else if (player.velX > 0) {
-      player.velX += -friction;
-    } else if (player.velX < 0) {
-      player.velX += friction;
+    if (Math.abs(player.accelX < 0.1)) {
+      player.accelX = 0;
+    } else if (player.accelX > 0) {
+      player.accelX += -friction;
+    } else if (player.accelX < 0) {
+      player.accelX += friction;
     }
   }
 
