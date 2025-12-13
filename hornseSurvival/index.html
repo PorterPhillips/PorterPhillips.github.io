@@ -34,7 +34,7 @@
   playerImage.src = "Hornse_player.png";
   const spriteWidth = 50;
   const spriteHeight = 50;
-  let playerState = "walk";
+  let playerState = "idle";
 
   let gameFrame = 0;
   const staggerFrames = 35;
@@ -77,7 +77,6 @@
   animate();
 
   //NOT CANVAS STUFF
-  const getPlayer = document.getElementById("");
   const testText = document.getElementById("test");
   let keysDown = {};
   let player = {
