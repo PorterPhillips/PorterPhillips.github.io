@@ -39,6 +39,7 @@
   let gameFrame = 0;
   const staggerFrames = 35;
   const spriteAnimations = [
+                                                                                                                                                        //idle is buggin idk twin
     "idle" = {
       loc: [
         {x: 0, y: 0,}
@@ -54,6 +55,7 @@
     }
   ];
 
+                                                                                                                                                      //fix animation idk bruh
   function animate() {
     ctx.clearRect(0, 0, canvas.width, canvas,height);
     let position = Math.floor(gameFrame / staggerFrames) % spriteAnimations[playerState].loc.length;
