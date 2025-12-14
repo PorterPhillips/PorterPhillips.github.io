@@ -32,9 +32,9 @@
   canvas.height = window.innerHeight;
 
   const playerImage = new Image();
-  playerImage.src = "hornseSurvival/Hornse_player BigAndBetter.png";
-  const spriteWidth = 50;
-  const spriteHeight = 50;
+  playerImage.src = "Hornse_player BigAndBetter.png";
+  const spriteWidth = 200;
+  const spriteHeight = 200;
   let playerState = "idle";
 
   let gameFrame = 0;
@@ -87,9 +87,9 @@
   let keysDown = {};
   let accelX = 0;
   let accelY = 0;
-  const accelMax = 0.5;
-  const accelInc = 0.001;
-  const friction = 0.005;
+  const accelMax = 2;
+  const accelInc = 0.005;
+  const friction = 0.02;
 
   function runTest() {
     testText.innerText =
