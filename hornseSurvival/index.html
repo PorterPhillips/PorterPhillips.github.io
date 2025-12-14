@@ -38,27 +38,25 @@
 
   let gameFrame = 0;
   const staggerFrames = 35;
-  const spriteAnimations = [
-                                                                                                                                                        //idle is buggin idk twin
-    "idle" = {
-      loc: [
-        {x: 0, y: 0,}
-      ]
+  const spriteAnimations = {
+    idle: {
+      loc: [{ x: 0, y: 0 }],
     },
-    "walk" = {
+    walk: {
       loc: [
-        {x: 50, y: 0,},
-        {x: 100, y: 0,},
-        {x: 150, y: 0,},
-        {x: 200, y: 0,}
-      ]
-    }
-  ];
+        { x: 50, y: 0 },
+        { x: 100, y: 0 },
+        { x: 150, y: 0 },
+        { x: 200, y: 0 },
+      ],
+    },
+  };
 
-                                                                                                                                                      //fix animation idk bruh
   function animate() {
-    ctx.clearRect(0, 0, canvas.width, canvas,height);
-    let position = Math.floor(gameFrame / staggerFrames) % spriteAnimations[playerState].loc.length;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    let position =
+      Math.floor(gameFrame / staggerFrames) %
+      spriteAnimations[playerState].loc.length;
     let frameX = spriteWidth * position;
     let frameY = 0;
     // (image, sourceX, sourceY, sourceWidth, sourceHeight, displayX, displayY, displayWidth, displayHeight)
