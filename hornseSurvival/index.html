@@ -14,8 +14,7 @@
         top: 0px;
         left: 0px;
         z-index: -1;
-        height: 100%;
-        width: 100%;
+        image-rendering: pixelated;
       }
     </style>
   </head>
@@ -29,9 +28,11 @@
   //CANVAS STUFF
   const canvas = document.getElementById("canvas1");
   const ctx = canvas.getContext("2d");
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
 
   const playerImage = new Image();
-  playerImage.src = "Hornse_player.png";
+  playerImage.src = "hornseSurvival/Hornse_player BigAndBetter.png";
   const spriteWidth = 50;
   const spriteHeight = 50;
   let playerState = "idle";
@@ -52,6 +53,11 @@
     },
   };
 
+  let playerX = 0;
+  let playerY = 0;
+  let globalX = 0;
+  let globalY = 0;
+
   function animate() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     let position =
@@ -66,8 +72,8 @@
       frameY,
       spriteWidth,
       spriteHeight,
-      0,
-      0,
+      playerX,
+      playerY,
       spriteWidth,
       spriteHeight
     );
@@ -79,20 +85,15 @@
   //NOT CANVAS STUFF
   const testText = document.getElementById("test");
   let keysDown = {};
-  let player = {
-    name: "player",
-    x: 0,
-    y: 0,
-    accelX: 0,
-    accelY: 0,
-  };
-  const accelMax = 2;
-  const accelInc = 0.01;
-  const friction = 0.02;
+  let accelX = 0;
+  let accelY = 0;
+  const accelMax = 0.5;
+  const accelInc = 0.001;
+  const friction = 0.005;
 
   function runTest() {
     testText.innerText =
-      JSON.stringify(keysDown) + " : " + player.accelX + " : " + player.accelY;
+      JSON.stringify(keysDown) + " : " + accelX + " : " + accelY;
   }
 
   //KEY UP AND KEY DOWN
@@ -113,23 +114,21 @@
 
   function movementCalc() {
     //POSITION CHANGE
-    //getPlayer.style.top = player.y + "px";
-    //getPlayer.style.left = player.x + "px";
-    player.x += player.accelX;
-    player.y += player.accelY;
+    playerX += accelX;
+    playerY += accelY;
     //VELOCITY Y
-    if (player.accelY > -accelMax && player.accelY < accelMax) {
+    if (accelY > -accelMax && accelY < accelMax) {
       if (keysDown["KeyW"]) {
-        player.accelY += -accelInc;
+        accelY += -accelInc;
       }
       if (keysDown["KeyS"]) {
-        player.accelY += accelInc;
+        accelY += accelInc;
       }
     } else {
-      if (player.accelY < accelMax) {
-        player.accelY = -accelMax;
+      if (accelY < accelMax) {
+        accelY = -accelMax;
       } else {
-        player.accelY = accelMax;
+        accelY = accelMax;
       }
     }
     //FRICTION Y
@@ -137,41 +136,41 @@
       (keysDown["KeyW"] && keysDown["KeyS"]) ||
       (!keysDown["KeyW"] && !keysDown["KeyS"])
     ) {
-      if (Math.abs(player.accelY < 0.1)) {
-        player.accelY = 0;
-      } else if (player.accelY > 0) {
-        player.accelY += -friction;
-      } else if (player.accelY < 0) {
-        player.accelY += friction;
+      if (Math.abs(accelY) < 0.05) {
+        accelY = 0;
+      } else if (accelY > 0) {
+        accelY += -friction;
+      } else if (accelY < 0) {
+        accelY += friction;
       }
     }
-  }
-  //VELOCITY X
-  if (player.accelX > -accelMax && player.accelX < accelMax) {
-    if (keysDown["KeyA"]) {
-      player.accelX += -accelInc;
-    }
-    if (keysDown["KeyD"]) {
-      player.accelX += accelInc;
-    }
-  } else {
-    if (player.accelX < accelMax) {
-      player.accelX = -accelMax;
+    //VELOCITY X
+    if (accelX > -accelMax && accelX < accelMax) {
+      if (keysDown["KeyA"]) {
+        accelX += -accelInc;
+      }
+      if (keysDown["KeyD"]) {
+        accelX += accelInc;
+      }
     } else {
-      player.accelX = accelMax;
+      if (accelX < accelMax) {
+        accelX = -accelMax;
+      } else {
+        accelX = accelMax;
+      }
     }
-  }
-  //FRICTION X
-  if (
-    (keysDown["KeyA"] && keysDown["KeyD"]) ||
-    (!keysDown["KeyA"] && !keysDown["KeyD"])
-  ) {
-    if (Math.abs(player.accelX < 0.1)) {
-      player.accelX = 0;
-    } else if (player.accelX > 0) {
-      player.accelX += -friction;
-    } else if (player.accelX < 0) {
-      player.accelX += friction;
+    //FRICTION X
+    if (
+      (keysDown["KeyA"] && keysDown["KeyD"]) ||
+      (!keysDown["KeyA"] && !keysDown["KeyD"])
+    ) {
+      if (Math.abs(accelX) < 0.05) {
+        accelX = 0;
+      } else if (accelX > 0) {
+        accelX += -friction;
+      } else if (accelX < 0) {
+        accelX += friction;
+      }
     }
   }
 
