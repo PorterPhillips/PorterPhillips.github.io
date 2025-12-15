@@ -32,7 +32,7 @@
   canvas.height = window.innerHeight;
 
   const playerImage = new Image();
-  playerImage.src = "Hornse_player BigAndBetter.png";
+  playerImage.src = "images/Hornse_player_Big_And_Better.png";
   const spriteWidth = 200;
   const spriteHeight = 200;
   let playerState = "idle";
@@ -55,7 +55,6 @@
 
   let playerX = 0;
   let playerY = 0;
-  
 
   const testText = document.getElementById("test");
   let keysDown = {};
@@ -87,7 +86,7 @@
     gameFrame++;
     requestAnimationFrame(animate);
   }
-  animate();
+  window.onload = animate();
 
   function runTest() {
     testText.innerText =
