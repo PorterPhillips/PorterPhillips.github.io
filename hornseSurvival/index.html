@@ -4,7 +4,6 @@
     <title>Hornse Survival</title>
     <style>
       body {
-        background-color: rgb(50, 200, 30);
         margin: 0px;
         padding: 0px;
       }
@@ -15,6 +14,7 @@
         left: 0px;
         z-index: -1;
         image-rendering: pixelated;
+        background-color: rgb(50, 200, 30);
       }
     </style>
   </head>
@@ -28,8 +28,8 @@
   //CANVAS STUFF
   const canvas = document.getElementById("canvas1");
   const ctx = canvas.getContext("2d");
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
+  canvas.width = 600 + "px";
+  canvas.height = 400 + "px";
 
   const playerImage = new Image();
   playerImage.src = "images/Hornse_player_Big_And_Better.png";
