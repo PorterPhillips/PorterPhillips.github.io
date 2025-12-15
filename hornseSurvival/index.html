@@ -58,6 +58,14 @@
   let globalX = 0;
   let globalY = 0;
 
+  const testText = document.getElementById("test");
+  let keysDown = {};
+  let accelX = 0;
+  let accelY = 0;
+  const accelMax = 0.75;
+  const accelInc = 0.01;
+  const friction = 0.005;
+
   function animate() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     let position =
@@ -74,26 +82,23 @@
       spriteHeight,
       playerX,
       playerY,
-      spriteWidth,
-      spriteHeight
+      spriteWidth / 2,
+      spriteHeight / 2
     );
     gameFrame++;
     requestAnimationFrame(animate);
   }
   animate();
 
-  //NOT CANVAS STUFF
-  const testText = document.getElementById("test");
-  let keysDown = {};
-  let accelX = 0;
-  let accelY = 0;
-  const accelMax = 0.5;
-  const accelInc = 0.001;
-  const friction = 0.005;
-
   function runTest() {
     testText.innerText =
-      JSON.stringify(keysDown) + " : " + accelX + " : " + accelY;
+      Math.floor(playerX) +
+      " : " +
+      Math.floor(playerY) +
+      " : " +
+      accelX +
+      " : " +
+      accelY;
   }
 
   //KEY UP AND KEY DOWN
@@ -159,7 +164,7 @@
         accelX = accelMax;
       }
     }
-    //FRICTION XX
+    //FRICTION X
     if (
       (keysDown["KeyA"] && keysDown["KeyD"]) ||
       (!keysDown["KeyA"] && !keysDown["KeyD"])
@@ -172,6 +177,7 @@
         accelX += friction;
       }
     }
+    //code here
   }
 
   setInterval(() => {
