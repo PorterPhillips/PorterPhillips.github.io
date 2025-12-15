@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      body {
+        margin: 0px;
+        padding: 0px;
+      }
+      #dude {
+        display: none;
+      }
+
+      #canvas {
+        display: block;
+      }
+    </style>
+  </head>
+
+  <body>
+    <canvas id="canvas"> </canvas>
+    <img hidden id="dude" src="walkDude.png" />
+  </body>
+</html>
+
+<script>
+  const canvas = document.getElementById("canvas");
+  const ctx = canvas.getContext("2d");
+  var dude = document.getElementById("dude");
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  let playerX = 0;
+  let playerY = 0;
+  let dirX = Math.random() >= 0.5 ? -1 : 1;
+  let dirY = Math.random() >= 0.5 ? -1 : 1;
+
+  function movementCalc() {
+    playerX += dirX;
+    playerY += dirY;
+    if (playerX < 0 || playerX + 160 > canvas.width) {
+      dirX *= -1;
+    }
+    if (playerY < 0 || playerY + 160 > canvas.height) {
+      dirY *= -1;
+    }
+  }
+
+  let frameX = [0, 160, 320, 480];
+  let frameY = 0;
+  function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    /*(image, sourceX, sourceY, sourceWidth, sourceHeight,
+    displayX, displayY, displayWidth, displayHeight)*/
+    ctx.drawImage(
+      dude,
+      frameX[i],
+      frameY,
+      160,
+      160,
+      playerX,
+      playerY,
+      160,
+      160
+    );
+  }
+  window.onload = animate();
+
+  setInterval(() => {
+    movementCalc();
+    animate();
+  }, 1);
+</script>
