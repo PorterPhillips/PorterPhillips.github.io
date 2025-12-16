@@ -36,7 +36,7 @@
 
   const playerImage = document.getElementById("player");
   const miniMapImage = document.getElementById("miniMap");
-  let playerState = "walk";
+  let playerState = "idle";
   let mapState = "center";
 
   let gameFrame = 0;
@@ -96,10 +96,13 @@
   function animate() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     function position(state) {
+      let fix;
+      if (state === "walk") fix = 1;
+      else fix = 0;
       return (
-        Math.floor(gameFrame / staggerFrames) %
-        spriteAnimations[state].loc.length
-        //+ 1
+        (Math.floor(gameFrame / staggerFrames) %
+          spriteAnimations[state].loc.length) +
+        fix
       );
     }
     let pFrameX = 200 * position(playerState);
@@ -157,9 +160,11 @@
     //VELOCITY Y
     if (accelY > -accelMax && accelY < accelMax) {
       if (keysDown["KeyW"]) {
+        playerState = "walk";
         accelY += -accelInc;
       }
       if (keysDown["KeyS"]) {
+        playerState = "walk";
         accelY += accelInc;
       }
     } else {
@@ -174,6 +179,7 @@
       (keysDown["KeyW"] && keysDown["KeyS"]) ||
       (!keysDown["KeyW"] && !keysDown["KeyS"])
     ) {
+      playerState = "idle";
       if (Math.abs(accelY) < 0.05) {
         accelY = 0;
       } else if (accelY > 0) {
@@ -185,9 +191,11 @@
     //VELOCITY X
     if (accelX > -accelMax && accelX < accelMax) {
       if (keysDown["KeyA"]) {
+        playerState = "walk";
         accelX += -accelInc;
       }
       if (keysDown["KeyD"]) {
+        playerState = "walk";
         accelX += accelInc;
       }
     } else {
@@ -202,6 +210,7 @@
       (keysDown["KeyA"] && keysDown["KeyD"]) ||
       (!keysDown["KeyA"] && !keysDown["KeyD"])
     ) {
+      playerState = "idle";
       if (Math.abs(accelX) < 0.05) {
         accelX = 0;
       } else if (accelX > 0) {
