@@ -99,17 +99,17 @@
       return (
         Math.floor(gameFrame / staggerFrames) %
         spriteAnimations[state].loc.length
+        //+ 1
       );
     }
     let pFrameX = 200 * position(playerState);
-    let pFrameY = 0;
     let mFrameX = 256 * position(mapState);
     let mFrameY = 0;
     // (image, sourceX, sourceY, sourceWidth, sourceHeight, displayX, displayY, displayWidth, displayHeight)
     ctx.drawImage(
       playerImage,
       pFrameX,
-      pFrameY,
+      0,
       200,
       200,
       playerX,
