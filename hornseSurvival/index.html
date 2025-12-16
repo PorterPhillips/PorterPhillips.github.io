@@ -35,9 +35,7 @@
   canvas.height = window.innerHeight;
 
   const playerImage = document.getElementById("player");
-  const miniMap = document.getElementById("miniMap");
-  const spriteWidth = 200;
-  const spriteHeight = 200;
+  const miniMapImage = document.getElementById("miniMap");
   let playerState = "idle";
   let mapState = "center";
 
@@ -98,8 +96,10 @@
   function animate() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     function position(state) {
-      Math.floor(gameFrame / staggerFrames) %
-        spriteAnimations[state].loc.length;
+      return (
+        Math.floor(gameFrame / staggerFrames) %
+        spriteAnimations[state].loc.length
+      );
     }
     let pFrameX = 200 * position(playerState);
     let pFrameY = 0;
@@ -117,17 +117,7 @@
       100,
       100
     );
-    ctx.drawImage(
-      miniMap,
-      mFrameX,
-      mFrameY,
-      256,
-      256,
-      playerX,
-      playerY,
-      128,
-      128
-    );
+    ctx.drawImage(miniMapImage, mFrameX, mFrameY, 256, 256, 1220, 0, 128, 128);
     gameFrame++;
     requestAnimationFrame(animate);
   }
