@@ -36,21 +36,21 @@
 
   const playerImage = document.getElementById("player");
   const miniMapImage = document.getElementById("miniMap");
-  let playerState = "idle";
+  let playerState = "walk";
   let mapState = "center";
 
   let gameFrame = 0;
-  const staggerFrames = 35;
+  const staggerFrames = 20;
   const spriteAnimations = {
     idle: {
       loc: [{ x: 0, y: 0 }],
     },
     walk: {
       loc: [
-        { x: 50, y: 0 },
-        { x: 100, y: 0 },
-        { x: 150, y: 0 },
         { x: 200, y: 0 },
+        { x: 400, y: 0 },
+        { x: 600, y: 0 },
+        { x: 800, y: 0 },
       ],
     },
     upLeft: {
