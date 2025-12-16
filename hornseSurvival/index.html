@@ -97,12 +97,13 @@
 
   function animate() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    let position =
+    function position(state) {
       Math.floor(gameFrame / staggerFrames) %
-      spriteAnimations[playerState].loc.length;
-    let pFrameX = 200 * position;
+        spriteAnimations[state].loc.length;
+    }
+    let pFrameX = 200 * position(playerState);
     let pFrameY = 0;
-    let mFrameX = 256 * position;
+    let mFrameX = 256 * position(mapState);
     let mFrameY = 0;
     // (image, sourceX, sourceY, sourceWidth, sourceHeight, displayX, displayY, displayWidth, displayHeight)
     ctx.drawImage(
