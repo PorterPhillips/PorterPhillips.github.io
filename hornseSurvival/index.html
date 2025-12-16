@@ -22,6 +22,8 @@
   <body>
     <h1 id="test">TEST//TEST//TEST</h1>
     <canvas id="canvas1"></canvas>
+    <img hidden id="player" src="images/Hornse_player_Big_And_Better.png" />
+    <img hidden id="miniMap" src="images/miniMap.png" />
   </body>
 </html>
 
@@ -32,11 +34,12 @@
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
 
-  const playerImage = new Image();
-  playerImage.src = "images/Hornse_player_Big_And_Better.png";
+  const playerImage = document.getElementById("player");
+  const miniMap = document.getElementById("miniMap");
   const spriteWidth = 200;
   const spriteHeight = 200;
   let playerState = "idle";
+  let mapState = "center";
 
   let gameFrame = 0;
   const staggerFrames = 35;
@@ -51,6 +54,33 @@
         { x: 150, y: 0 },
         { x: 200, y: 0 },
       ],
+    },
+    upLeft: {
+      loc: [{ x: 0, y: 0 }],
+    },
+    upCenter: {
+      loc: [{ x: 256, y: 0 }],
+    },
+    upRight: {
+      loc: [{ x: 512, y: 0 }],
+    },
+    centerLeft: {
+      loc: [{ x: 0, y: 256 }],
+    },
+    center: {
+      loc: [{ x: 256, y: 256 }],
+    },
+    centerRight: {
+      loc: [{ x: 512, y: 256 }],
+    },
+    bottomLeft: {
+      loc: [{ x: 0, y: 512 }],
+    },
+    bottomCenter: {
+      loc: [{ x: 256, y: 512 }],
+    },
+    bottomRight: {
+      loc: [{ x: 512, y: 512 }],
     },
   };
 
@@ -70,19 +100,32 @@
     let position =
       Math.floor(gameFrame / staggerFrames) %
       spriteAnimations[playerState].loc.length;
-    let frameX = spriteWidth * position;
-    let frameY = 0;
+    let pFrameX = 200 * position;
+    let pFrameY = 0;
+    let mFrameX = 256 * position;
+    let mFrameY = 0;
     // (image, sourceX, sourceY, sourceWidth, sourceHeight, displayX, displayY, displayWidth, displayHeight)
     ctx.drawImage(
       playerImage,
-      frameX,
-      frameY,
-      spriteWidth,
-      spriteHeight,
+      pFrameX,
+      pFrameY,
+      200,
+      200,
       playerX,
       playerY,
-      spriteWidth / 2,
-      spriteHeight / 2
+      100,
+      100
+    );
+    ctx.drawImage(
+      miniMap,
+      mFrameX,
+      mFrameY,
+      256,
+      256,
+      playerX,
+      playerY,
+      128,
+      128
     );
     gameFrame++;
     requestAnimationFrame(animate);
