@@ -89,9 +89,10 @@
   let keysDown = {};
   let accelX = 0;
   let accelY = 0;
-  const accelMax = 0.75;
+  const accelCap = 0.75;
   const accelInc = 0.01;
   const friction = 0.005;
+  let walking = "false";
 
   function animate() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -158,20 +159,26 @@
     playerX += accelX;
     playerY += accelY;
     //VELOCITY Y
-    if (accelY > -accelMax && accelY < accelMax) {
-      if (keysDown["KeyW"]) {
-        playerState = "walk";
+    if (accelY > -accelCap && accelY < accelCap) {
+      if (keysDown.KeyW) {
+        walking = true;
         accelY += -accelInc;
       }
-      if (keysDown["KeyS"]) {
-        playerState = "walk";
+      if (keysDown.KeyS) {
+        walking = true;
         accelY += accelInc;
       }
     } else {
-      if (accelY < accelMax) {
-        accelY = -accelMax;
+      if (accelY < accelCap) {
+        accelY = -accelCap;
       } else {
-        accelY = accelMax;
+        accelY = accelCap;
+      }
+      if (keysDown.KeyW) {
+        walking = true;
+      }
+      if (keysDown.KeyS) {
+        walking = true;
       }
     }
     //FRICTION Y
@@ -179,7 +186,7 @@
       (keysDown["KeyW"] && keysDown["KeyS"]) ||
       (!keysDown["KeyW"] && !keysDown["KeyS"])
     ) {
-      playerState = "idle";
+      walking = false;
       if (Math.abs(accelY) < 0.05) {
         accelY = 0;
       } else if (accelY > 0) {
@@ -189,20 +196,26 @@
       }
     }
     //VELOCITY X
-    if (accelX > -accelMax && accelX < accelMax) {
-      if (keysDown["KeyA"]) {
-        playerState = "walk";
+    if (accelX > -accelCap && accelX < accelCap) {
+      if (keysDown.KeyA) {
+        walking = true;
         accelX += -accelInc;
       }
-      if (keysDown["KeyD"]) {
-        playerState = "walk";
+      if (keysDown.KeyD) {
+        walking = true;
         accelX += accelInc;
       }
     } else {
-      if (accelX < accelMax) {
-        accelX = -accelMax;
+      if (accelX < accelCap) {
+        accelX = -accelCap;
       } else {
-        accelX = accelMax;
+        accelX = accelCap;
+      }
+      if (keysDown.KeyA) {
+        walking = true;
+      }
+      if (keysDown.KeyD) {
+        walking = true;
       }
     }
     //FRICTION X
@@ -210,7 +223,7 @@
       (keysDown["KeyA"] && keysDown["KeyD"]) ||
       (!keysDown["KeyA"] && !keysDown["KeyD"])
     ) {
-      playerState = "idle";
+      walking = false;
       if (Math.abs(accelX) < 0.05) {
         accelX = 0;
       } else if (accelX > 0) {
@@ -219,7 +232,8 @@
         accelX += friction;
       }
     }
-    //code here
+    if (walking === true) playerState = "walk";
+    else playerState = "idle";
   }
 
   setInterval(() => {
