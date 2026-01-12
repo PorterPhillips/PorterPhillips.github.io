@@ -22,8 +22,10 @@
   let y = 0;
   let changeX = 0;
   let changeY = 0;
-  const sizeX = 10;
-  const sizeY = 10;
+  let sizeX = 10;
+  let sizeY = 10;
+  let tempX = 0;
+  let tempY = 0;
 
   //clearRect(2000, 2000, 2000, 2000);
 
@@ -33,8 +35,6 @@
   });
 
   function XYlog() {
-    let tempX = 0;
-    let tempY = 0;
     if (tempX !== x) {
       if (Math.abs(tempX) > Math.abs(x)) {
         changeX = Math.abs(tempX - x);
@@ -53,7 +53,10 @@
     tempY = y;
   }
 
-  function stretch() {}
+  function stretch() {
+    sizeX = changeX + 10;
+    sizeY = changeY + 10;
+  }
 
   function somethin() {
     ctx.clearRect(0, 0, 2000, 2000);
@@ -63,6 +66,7 @@
 
   setInterval(() => {
     somethin();
+    XYlog();
     stretch();
   }, 1);
 </script>
