@@ -24,17 +24,19 @@
   let changeY = 0;
   let sizeX = 10;
   let sizeY = 10;
-  let tempX = 0;
-  let tempY = 0;
-
-  //clearRect(2000, 2000, 2000, 2000);
+  let squaresX = [];
+  let squaresY = [];
+  let differnce = 0;
 
   document.addEventListener("mousemove", (e) => {
     x = e.clientX;
     y = e.clientY;
+    
   });
 
-  function XYlog() {
+  function changeLog() {
+    let tempX = 0;
+    let tempY = 0;
     if (tempX !== x) {
       if (Math.abs(tempX) > Math.abs(x)) {
         changeX = Math.abs(tempX - x);
@@ -53,20 +55,23 @@
     tempY = y;
   }
 
-  function stretch() {
-    sizeX = changeX + 10;
-    sizeY = changeY + 10;
-  }
-
   function somethin() {
     ctx.clearRect(0, 0, 2000, 2000);
+    squaresX.length = 0;
+    squaresY.length = 0;
     ctx.fillStyle = "red";
-    ctx.fillRect(x - sizeX / 2, y - sizeY / 2, sizeX, sizeY);
+
+    for (i = 0; i < 5; i++) {
+      squaresX.push(x - sizeX / 2 - i * differnce);
+      squaresY.push(y - sizeY / 2 - i * differnce);
+      //dividing by 2 means cursor will center on initial square place
+      ctx.fillRect(squaresX[i], squaresY[i], sizeX, sizeY);
+    }
   }
 
   setInterval(() => {
     somethin();
-    XYlog();
+    changeLog();
     stretch();
   }, 1);
 </script>
