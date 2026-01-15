@@ -18,41 +18,70 @@
 <script>
   let canvas = document.getElementById("canvas");
   let ctx = canvas.getContext("2d");
-  let x = [0, 0, 0, 0, 0];
-  let y = [0, 0, 0, 0, 0];
-  let prevX = 0;
-  let prevY = 0;
+  let x = [];
+  let y = [];
   let changeX = 0;
   let changeY = 0;
+  const boxNum = 5;
 
   document.addEventListener("mousemove", (e) => {
-    x[0] = e.clientX;
-    y[0] = e.clientY;
+    x[0] = e.clientX - 5;
+    y[0] = e.clientY - 5;
+
+    if (x.length === 1) {
+      ctx.fillRect(x[0], y[0], 10, 10);
+      for (i = 1; i < boxNum; i++) {
+        //will create a new box using the (x, y) of the previous box
+        x[i] = x[i - 1] + changeX;
+        y[i] = y[i - 1] + changeY;
+
+        ctx.fillRect(x[i], y[i], 10, 10);
+      }
+    }
   });
 
-  function changeLog() {
-    //make change variables increase when mouse has a differnce, and decrease elsewise
-    prevX = x[0];
-    prevY = y[0];
-  }
-
-  function somethin() {
+  function main() {
     ctx.clearRect(0, 0, 2000, 2000);
-    x.length = 1;
-    y.length = 1;
     ctx.fillStyle = "red";
 
-    for (i = 0; i < 2; i++) {
-      //creates new (x, y) for the next box to use from the currnet (x, y)
-      x.push(x[i] + changeX);
-      y.push(y[i] + changeY);
+    if (x.length > 1) {
+      ctx.fillRect(x[0], y[0], 10, 10);
+      for (i = 1; i < boxNum; i++) {
+        let driftX = 0;
+        let driftY = 0;
 
-      ctx.fillRect(x[i], y[i], 10, 10);
+        //x change and drift
+        if (x[i] > x[i - 1]) {
+          changeX = x[i] - x[i - 1];
+          driftX = -changeX / 20;
+        } else if (x[i] < x[i - 1]) {
+          changeX = x[i] - x[i - 1];
+          driftX = -changeX / 20;
+        } else if (x[i] === x[i - 1]) {
+          changeX = 0;
+          driftX = 0;
+        }
+        //y change and drift
+        if (y[i] > y[i - 1]) {
+          changeY = y[i] - y[i - 1];
+          driftY = -changeY / 20;
+        } else if (y[i] < y[i - 1]) {
+          changeY = y[i] - y[i - 1];
+          driftY = -changeY / 20;
+        } else if (y[i] === y[i - 1]) {
+          changeY = 0;
+          driftY = 0;
+        }
+
+        //will create a new box using the (x, y) of the previous box
+        x[i] = x[i - 1] + changeX + driftX;
+        y[i] = y[i - 1] + changeY + driftY;
+        ctx.fillRect(x[i], y[i], 10, 10);
+      }
     }
   }
 
   setInterval(() => {
-    somethin();
-    changeLog();
+    main();
   }, 1);
 </script>
