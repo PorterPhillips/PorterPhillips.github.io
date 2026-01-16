@@ -8,80 +8,111 @@
         padding: 0px;
         overflow: hidden;
       }
+      #canvas {
+        display: block;
+      }
+      #slider {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        z-index: 10;
+      }
+      p {
+        position: absolute;
+        margin-top: 0px;
+        margin-bottom: 0px;
+        top: 10px;
+        left: 150px;
+        z-index: 10;
+      }
     </style>
   </head>
   <body>
     <canvas id="canvas" height="800" width="1366"> </canvas>
+    <input type="range" id="slider" name="slider" min="0" max="1000" step="1" />
+    <p id="sliderValue">---</p>
   </body>
 </html>
 
 <script>
-  let canvas = document.getElementById("canvas");
-  let ctx = canvas.getContext("2d");
-  let x = [];
-  let y = [];
+  const canvas = document.getElementById("canvas");
+  const ctx = canvas.getContext("2d");
+  const slider = document.getElementById("slider");
+  const valueDisplay = document.getElementById("sliderValue");
+  const squares = {
+    x: [],
+    y: [],
+  };
   let changeX = 0;
   let changeY = 0;
-  const boxNum = 50;
+  let boxNum = 50;
 
-  document.addEventListener("mousemove", (e) => {
-    x[0] = e.clientX - 5;
-    y[0] = e.clientY - 5;
-
-    if (x.length === 1) {
-      ctx.fillRect(x[0], y[0], 10, 10);
-      for (i = 1; i < boxNum; i++) {
-        //will create a new box using the (x, y) of the previous box
-        x[i] = x[i - 1] + changeX;
-        y[i] = y[i - 1] + changeY;
-
-        ctx.fillRect(x[i], y[i], 10, 10);
-      }
-    }
+  slider.addEventListener("input", () => {
+    boxNum = slider.value;
+    valueDisplay.innerText = slider.value;
   });
 
-  function main() {
+  function firstDraw(obj) {
+    if (obj.x.length === 1) {
+      ctx.fillRect(obj.x[0], obj.y[0], 10, 10);
+      for (i = 1; i < boxNum; i++) {
+        //will create a new box using the (x, y) of the previous box
+        obj.x[i] = obj.x[i - 1] + changeX;
+        obj.y[i] = obj.y[i - 1] + changeY;
+
+        ctx.fillRect(obj.x[i], obj.y[i], 10, 10);
+      }
+    }
+  }
+
+  document.addEventListener("mousemove", (e) => {
+    squares.x[0] = e.clientX - 5;
+    squares.y[0] = e.clientY - 5;
+    firstDraw(squares);
+  });
+
+  function main(obj) {
     ctx.clearRect(0, 0, 2000, 2000);
     ctx.fillStyle = "red";
 
-    if (x.length > 1) {
-      ctx.fillRect(x[0], y[0], 10, 10);
+    if (obj.x.length > 1) {
+      ctx.fillRect(obj.x[0], obj.y[0], 10, 10);
       for (i = 1; i < boxNum; i++) {
         let driftX = 0;
         let driftY = 0;
 
         //x change and drift
-        if (x[i] > x[i - 1]) {
-          changeX = x[i] - x[i - 1];
+        if (obj.x[i] > obj.x[i - 1]) {
+          changeX = obj.x[i] - obj.x[i - 1];
           driftX = -changeX / 20;
-        } else if (x[i] < x[i - 1]) {
-          changeX = x[i] - x[i - 1];
+        } else if (obj.x[i] < obj.x[i - 1]) {
+          changeX = obj.x[i] - obj.x[i - 1];
           driftX = -changeX / 20;
-        } else if (x[i] === x[i - 1]) {
+        } else if (obj.x[i] === obj.x[i - 1]) {
           changeX = 0;
           driftX = 0;
         }
         //y change and drift
-        if (y[i] > y[i - 1]) {
-          changeY = y[i] - y[i - 1];
+        if (obj.y[i] > obj.y[i - 1]) {
+          changeY = obj.y[i] - obj.y[i - 1];
           driftY = -changeY / 20;
-        } else if (y[i] < y[i - 1]) {
-          changeY = y[i] - y[i - 1];
+        } else if (obj.y[i] < obj.y[i - 1]) {
+          changeY = obj.y[i] - obj.y[i - 1];
           driftY = -changeY / 20;
-        } else if (y[i] === y[i - 1]) {
+        } else if (obj.y[i] === obj.y[i - 1]) {
           changeY = 0;
           driftY = 0;
         }
 
         //will create a new box using the (x, y) of the previous box
-        x[i] = x[i - 1] + changeX + driftX;
-        y[i] = y[i - 1] + changeY + driftY;
-        ctx.fillRect(x[i], y[i], 10, 10);
+        obj.x[i] = obj.x[i - 1] + changeX + driftX;
+        obj.y[i] = obj.y[i - 1] + changeY + driftY;
+        ctx.fillRect(obj.x[i], obj.y[i], 10, 10);
       }
     }
   }
 
   setInterval(() => {
-    main();
+    main(squares);
   }, 1);
 </script>
