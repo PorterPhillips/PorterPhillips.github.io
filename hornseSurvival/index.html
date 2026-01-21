@@ -31,6 +31,7 @@
   //CANVAS STUFF
   const playerImage = document.getElementById("player");
   const miniMapImage = document.getElementById("miniMap");
+  const testText = document.getElementById("test");
   const canvas = document.getElementById("canvas1");
   const ctx = canvas.getContext("2d");
   canvas.width = window.innerWidth;
@@ -41,9 +42,6 @@
     x: 0,
     y: 0,
   };
-
-  const testText = document.getElementById("test");
-  let keysDown = {};
   let accel = {
     x: 0,
     y: 0,
@@ -51,6 +49,8 @@
   const accelCap = 0.75;
   const accelStep = 0.02;
   const friction = 0.005;
+
+  let keysDown = {};
 
   function animate() {
     let gameFrame = 0;
@@ -144,16 +144,10 @@
     if (!keysDown[e.code]) {
       keysDown[e.code] = true;
     }
-    runTest();
-    movement();
-    runTest();
   });
 
   document.addEventListener("keyup", (e) => {
     keysDown[e.code] = false;
-    runTest();
-    movement();
-    runTest();
   });
 
   function runTest() {
