@@ -37,16 +37,20 @@
   canvas.height = window.innerHeight;
   let playerState = "idle";
   let mapState = "center";
-  let playerX = 0;
-  let playerY = 0;
+  let player = {
+    x: 0,
+    y: 0,
+  };
 
   const testText = document.getElementById("test");
   let keysDown = {};
-  let accelX = 0;
-  let accelY = 0;
+  let accel = {
+    x: 0,
+    y: 0,
+  };
   const accelCap = 0.75;
-  const accelStep = 0.01;
-  const frictionVal = 0.005;
+  const accelStep = 0.02;
+  const friction = 0.005;
 
   function animate() {
     let gameFrame = 0;
@@ -125,8 +129,8 @@
       0,
       200,
       200,
-      playerX,
-      playerY,
+      player.x,
+      player.y,
       100,
       100,
     );
@@ -142,7 +146,6 @@
     }
     runTest();
     movement();
-    friction();
     runTest();
   });
 
@@ -150,87 +153,94 @@
     keysDown[e.code] = false;
     runTest();
     movement();
-    friction();
     runTest();
   });
 
   function runTest() {
     testText.innerText =
-      Math.floor(playerX) +
+      Math.floor(player.x) +
       " : " +
-      Math.floor(playerY) +
+      Math.floor(player.y) +
       " : " +
-      accelX +
+      accel.x +
       " : " +
-      accelY;
+      accel.y;
     +" : " + playerState;
   }
 
   function movement() {
-    playerX += accelX;
-    playerY += accelY;
-    if (accelY > -accelCap && accelY < accelCap) {
+    //POSITION CHANGE
+    player.x += accel.x;
+    player.y += accel.y;
+    //VELOCITY Y
+    if (accel.y > -accelCap && accel.y < accelCap) {
       if (keysDown.KeyW) {
-        accelY += -accelStep;
+        accel.y += -accelStep;
       }
       if (keysDown.KeyS) {
-        accelY += accelStep;
+        accel.y += accelStep;
       }
     } else {
-      if (accelY < accelCap) {
-        accelY = -accelCap;
+      if (accel.y < accelCap) {
+        accel.y = -accelCap;
       } else {
-        accelY = accelCap;
+        accel.y = accelCap;
       }
-      if (accelX > -accelCap && accelX < accelCap) {
-        if (keysDown.KeyA) {
-          accelX += -accelStep;
-        }
-        if (keysDown.KeyD) {
-          accelX += accelStep;
-        }
-      } else {
-        if (accelX < accelCap) {
-          accelX = -accelCap;
-        } else {
-          accelX = accelCap;
-        }
+      if (keysDown.KeyW) {
+      }
+      if (keysDown.KeyS) {
       }
     }
-  }
-
-  function friction() {
-    if (
-      (keysDown["KeyA"] && keysDown["KeyD"]) ||
-      (!keysDown["KeyA"] && !keysDown["KeyD"])
-    ) {
-      if (Math.abs(accelX) < 0.05) {
-        accelX = 0;
-      } else if (accelX > 0) {
-        accelX += -frictionVal;
-      } else if (accelX < 0) {
-        accelX += frictionVal;
-      }
-    }
+    //FRICTION Y
     if (
       (keysDown["KeyW"] && keysDown["KeyS"]) ||
       (!keysDown["KeyW"] && !keysDown["KeyS"])
     ) {
-      if (Math.abs(accelY) < 0.05) {
-        accelY = 0;
-      } else if (accelY > 0) {
-        accelY += -frictionVal;
-      } else if (accelY < 0) {
-        accelY += frictionVal;
+      if (Math.abs(accel.y) < 0.05) {
+        accel.y = 0;
+      } else if (accel.y > 0) {
+        accel.y += -friction;
+      } else if (accel.y < 0) {
+        accel.y += friction;
+      }
+    }
+    //VELOCITY X
+    if (accel.x > -accelCap && accel.x < accelCap) {
+      if (keysDown.KeyA) {
+        accel.x += -accelStep;
+      }
+      if (keysDown.KeyD) {
+        accel.x += accelStep;
+      }
+    } else {
+      if (accel.x < accelCap) {
+        accel.x = -accelCap;
+      } else {
+        accel.x = accelCap;
+      }
+      if (keysDown.KeyA) {
+      }
+      if (keysDown.KeyD) {
+      }
+    }
+    //FRICTION X
+    if (
+      (keysDown["KeyA"] && keysDown["KeyD"]) ||
+      (!keysDown["KeyA"] && !keysDown["KeyD"])
+    ) {
+      if (Math.abs(accel.x) < 0.05) {
+        accel.x = 0;
+      } else if (accel.x > 0) {
+        accel.x += -friction;
+      } else if (accel.x < 0) {
+        accel.x += friction;
       }
     }
   }
 
   function main() {
     movement();
-    friction();
-    //Player State
-    if (Math.abs(accelX) === 0 && Math.abs(accelY) === 0) {
+    if (Math.abs(accel.x) === 0 && Math.abs(accel.y) === 0) {
       playerState = "idle";
     } else {
       playerState = "walk";
@@ -238,5 +248,7 @@
     runTest();
   }
 
-  setInterval(main(), 1);
+  setInterval(() => {
+    main();
+  }, 1);
 </script>
