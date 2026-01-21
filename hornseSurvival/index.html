@@ -232,6 +232,39 @@
     }
   }
 
+  /*function movement(coord) {
+    //POSITION CHANGE
+    player.coord += accel.coord;
+    //VELOCITY
+    if (accel.coord > -accelCap && accel.coord < accelCap) {
+      if (keysDown.KeyW) {
+        accel.coord += -accelStep;
+      }
+      if (keysDown.KeyS) {
+        accel.coord += accelStep;
+      }
+    } else {
+      if (accel.coord < accelCap) {
+        accel.coord = -accelCap;
+      } else {
+        accel.coord = accelCap;
+      }
+    }
+    //FRICTION
+    if (
+      (keysDown["KeyW"] && keysDown["KeyS"]) ||
+      (!keysDown["KeyW"] && !keysDown["KeyS"])
+    ) {
+      if (Math.abs(accel.coord) < 0.05) {
+        accel.coord = 0;
+      } else if (accel.coord > 0) {
+        accel.coord += -friction;
+      } else if (accel.coord < 0) {
+        accel.coord += friction;
+      }
+    }
+  }*/
+
   function main() {
     movement();
     if (Math.abs(accel.x) === 0 && Math.abs(accel.y) === 0) {
