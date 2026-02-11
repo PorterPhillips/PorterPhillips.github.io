@@ -1,0 +1,31 @@
+<html>
+  <head> </head>
+  <body></body>
+</html>
+<script>
+  function checkLength(pw) {
+    if (pw.length > 8) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  function checkExclaim(pw) {
+    if (pw.includes("!")) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  function meetsLoginRequirements(password) {
+    // Requirement 1: Is the password longer than 8 characters?
+    const isLongEnough = checkLength(password);
+    // Requirement 2: Does the password contain the character '!'?
+    const hasOne = checkExclaim(password);
+    // Must meet both requirements
+    return isLongEnough && hasOne;
+  }
+  console.log(meetsLoginRequirements("FortNite2007"));
+</script>
