@@ -19,7 +19,7 @@ if [ -d "asd-projects" ]; then
 fi
 
 # clone student-owned asd-projects repo
-git clone https://github.com/$username/asd
+git clone https://github.com/PorterPhillips/asd
 
 # remove git references from cloned repo if the asd folder exists
 if [ -d "asd" ]; then
