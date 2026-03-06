@@ -181,21 +181,6 @@
         }
       }
     }
-    //VELOCITY Y
-    if (accel.y > -accelCap && accel.y < accelCap) {
-      if (keysDown.KeyW) {
-        accel.y += -accelStep;
-      }
-      if (keysDown.KeyS) {
-        accel.y += accelStep;
-      }
-    } else {
-      if (accel.y < accelCap) {
-        accel.y = -accelCap;
-      } else {
-        accel.y = accelCap;
-      }
-    }
     //FRICTION Y
     if (
       (keysDown["KeyW"] && keysDown["KeyS"]) ||
@@ -207,21 +192,6 @@
         accel.y += -friction;
       } else if (accel.y < 0) {
         accel.y += friction;
-      }
-    }
-    //VELOCITY X
-    if (accel.x > -accelCap && accel.x < accelCap) {
-      if (keysDown.KeyA) {
-        accel.x += -accelStep;
-      }
-      if (keysDown.KeyD) {
-        accel.x += accelStep;
-      }
-    } else {
-      if (accel.x < accelCap) {
-        accel.x = -accelCap;
-      } else {
-        accel.x = accelCap;
       }
     }
     //FRICTION X
@@ -238,39 +208,6 @@
       }
     }
   }
-
-  /*function movement(coord) {
-    //POSITION CHANGE
-    player.coord += accel.coord;
-    //VELOCITY
-    if (accel.coord > -accelCap && accel.coord < accelCap) {
-      if (keysDown.KeyW) {
-        accel.coord += -accelStep;
-      }
-      if (keysDown.KeyS) {
-        accel.coord += accelStep;
-      }
-    } else {
-      if (accel.coord < accelCap) {
-        accel.coord = -accelCap;
-      } else {
-        accel.coord = accelCap;
-      }
-    }
-    //FRICTION
-    if (
-      (keysDown["KeyW"] && keysDown["KeyS"]) ||
-      (!keysDown["KeyW"] && !keysDown["KeyS"])
-    ) {
-      if (Math.abs(accel.coord) < 0.05) {
-        accel.coord = 0;
-      } else if (accel.coord > 0) {
-        accel.coord += -friction;
-      } else if (accel.coord < 0) {
-        accel.coord += friction;
-      }
-    }
-  }*/
 
   function keyAction(bool) {
     if (bool) {
