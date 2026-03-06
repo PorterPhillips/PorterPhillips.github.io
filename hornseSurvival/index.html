@@ -154,7 +154,7 @@
     keysDown[e.code] = false;
   });
 
-  function runTest(junk) {
+  function runTest() {
     testText.innerText =
       Math.floor(player.x) +
       " : " +
@@ -163,10 +163,9 @@
       speed.x +
       " : " +
       speed.y;
-    +" : " + junk;
   }
 
-  function movement() {
+  function move() {
     for (let key in player) {
       //POSITION CHANGE
       player[key] += speed[key];
@@ -180,17 +179,17 @@
           speed[key] = speedCap;
         }
       }
-      friction();
     }
   }
   //FRICTION EXPERIMENTAL
   function friction() {
-    let temp =
-      (keysDown["KeyW"] && keysDown["KeyS"]) ||
-      (!keysDown["KeyW"] && !keysDown["KeyS"])
-        ? "NS"
-        : "EW";
-    if (temp === "NS") {
+    let doubleVert = keysDown["KeyW"] && keysDown["KeyS"];
+    let noneVert = !keysDown["KeyW"] && !keysDown["KeyS"];
+    let doubleHorz = keysDown["KeyA"] && keysDown["KeyD"];
+    let noneHorz = !keysDown["KeyA"] && !keysDown["KeyD"];
+    let vertCheck = doubleVert || noneVert ? "vertical" : "not vertical";
+    let horzCheck = doubleHorz || noneHorz ? "horizontal" : "not horizontal";
+    if (temp === "vertical") {
       if (Math.abs(speed.y) < 0.05) {
         speed.y = 0;
       } else if (speed.y > 0) {
@@ -198,7 +197,7 @@
       } else if (speed.y < 0) {
         speed.y += frictionVal;
       }
-    } else {
+    } else if (temp === "horizontal") {
       if (Math.abs(speed.x) < 0.05) {
         speed.x = 0;
       } else if (speed.x > 0) {
@@ -215,8 +214,6 @@
   } else if (speed[key] < 0) {
     speed[key] += frictionVal;
   }
-  //(keysDown["KeyA"] && keysDown["KeyD"]) ||
-  //(!keysDown["KeyA"] && !keysDown["KeyD"]);
 
   function keyAction(bool) {
     if (bool) {
@@ -235,13 +232,18 @@
     }
   }
 
-  function main() {
-    movement();
+  function stateChange() {
     if (Math.abs(speed.x) === 0 && Math.abs(speed.y) === 0) {
       playerState = "idle";
     } else {
       playerState = "walk";
     }
+  }
+
+  function main() {
+    move();
+    friction();
+    stateChange();
     runTest();
   }
 
