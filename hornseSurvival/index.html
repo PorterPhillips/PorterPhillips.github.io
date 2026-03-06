@@ -43,13 +43,13 @@
     x: 0,
     y: 0,
   };
-  let accel = {
+  let speed = {
     x: 0,
     y: 0,
   };
-  const accelCap = 0.75;
-  const accelStep = 0.02;
-  const friction = 0.005;
+  const speedCap = 0.75;
+  const speedStep = 0.02;
+  const frictionVal = 0.005;
   let keysDown = {};
 
   function animate() {
@@ -160,75 +160,84 @@
       " : " +
       Math.floor(player.y) +
       " : " +
-      accel.x +
+      speed.x +
       " : " +
-      accel.y;
+      speed.y;
     +" : " + junk;
   }
 
   function movement() {
     for (let key in player) {
       //POSITION CHANGE
-      player[key] += accel[key];
-      //VELOCITY Y
-      if (accel[key] > -accelCap && accel[key] < accelCap) {
+      player[key] += speed[key];
+      //VELOCITY X/Y
+      if (speed[key] > -speedCap && speed[key] < speedCap) {
         keyAction(true);
       } else {
-        if (accel[key] < accelCap) {
-          accel[key] = -accelCap;
+        if (speed[key] < speedCap) {
+          speed[key] = -speedCap;
         } else {
-          accel[key] = accelCap;
+          speed[key] = speedCap;
         }
       }
+      friction();
     }
-    //FRICTION Y
-    if (
+  }
+  //FRICTION EXPERIMENTAL
+  function friction() {
+    let temp =
       (keysDown["KeyW"] && keysDown["KeyS"]) ||
       (!keysDown["KeyW"] && !keysDown["KeyS"])
-    ) {
-      if (Math.abs(accel.y) < 0.05) {
-        accel.y = 0;
-      } else if (accel.y > 0) {
-        accel.y += -friction;
-      } else if (accel.y < 0) {
-        accel.y += friction;
+        ? "NS"
+        : "EW";
+    if (temp === "NS") {
+      if (Math.abs(speed.y) < 0.05) {
+        speed.y = 0;
+      } else if (speed.y > 0) {
+        speed.y += -frictionVal;
+      } else if (speed.y < 0) {
+        speed.y += frictionVal;
       }
-    }
-    //FRICTION X
-    if (
-      (keysDown["KeyA"] && keysDown["KeyD"]) ||
-      (!keysDown["KeyA"] && !keysDown["KeyD"])
-    ) {
-      if (Math.abs(accel.x) < 0.05) {
-        accel.x = 0;
-      } else if (accel.x > 0) {
-        accel.x += -friction;
-      } else if (accel.x < 0) {
-        accel.x += friction;
+    } else {
+      if (Math.abs(speed.x) < 0.05) {
+        speed.x = 0;
+      } else if (speed.x > 0) {
+        speed.x += -frictionVal;
+      } else if (speed.x < 0) {
+        speed.x += frictionVal;
       }
     }
   }
+  if (Math.abs(speed[key]) < 0.05) {
+    speed[key] = 0;
+  } else if (speed[key] > 0) {
+    speed[key] += -frictionVal;
+  } else if (speed[key] < 0) {
+    speed[key] += frictionVal;
+  }
+  //(keysDown["KeyA"] && keysDown["KeyD"]) ||
+  //(!keysDown["KeyA"] && !keysDown["KeyD"]);
 
   function keyAction(bool) {
     if (bool) {
       if (keysDown.KeyW) {
-        accel.y += -accelStep;
+        speed.y += -speedStep;
       }
       if (keysDown.KeyS) {
-        accel.y += accelStep;
+        speed.y += speedStep;
       }
       if (keysDown.KeyA) {
-        accel.x += -accelStep;
+        speed.x += -speedStep;
       }
       if (keysDown.KeyD) {
-        accel.x += accelStep;
+        speed.x += speedStep;
       }
     }
   }
 
   function main() {
     movement();
-    if (Math.abs(accel.x) === 0 && Math.abs(accel.y) === 0) {
+    if (Math.abs(speed.x) === 0 && Math.abs(speed.y) === 0) {
       playerState = "idle";
     } else {
       playerState = "walk";
