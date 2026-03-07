@@ -179,40 +179,35 @@
           speed[key] = speedCap;
         }
       }
+      friction(key);
     }
   }
-  //FRICTION EXPERIMENTAL
-  function friction() {
-    let doubleVert = keysDown["KeyW"] && keysDown["KeyS"];
-    let noneVert = !keysDown["KeyW"] && !keysDown["KeyS"];
-    let doubleHorz = keysDown["KeyA"] && keysDown["KeyD"];
-    let noneHorz = !keysDown["KeyA"] && !keysDown["KeyD"];
-    let vertCheck = doubleVert || noneVert ? "vertical" : "not vertical";
-    let horzCheck = doubleHorz || noneHorz ? "horizontal" : "not horizontal";
-    if (temp === "vertical") {
+
+  function friction(coord) {
+    if (
+      (keysDown["KeyW"] && keysDown["KeyS"]) ||
+      (!keysDown["KeyW"] && !keysDown["KeyS"])
+    ) {
       if (Math.abs(speed.y) < 0.05) {
         speed.y = 0;
       } else if (speed.y > 0) {
-        speed.y += -frictionVal;
+        speed.y += -friction;
       } else if (speed.y < 0) {
-        speed.y += frictionVal;
+        speed.y += friction;
       }
-    } else if (temp === "horizontal") {
+    }
+    if (
+      (keysDown["KeyA"] && keysDown["KeyD"]) ||
+      (!keysDown["KeyA"] && !keysDown["KeyD"])
+    ) {
       if (Math.abs(speed.x) < 0.05) {
         speed.x = 0;
       } else if (speed.x > 0) {
-        speed.x += -frictionVal;
+        speed.x += -friction;
       } else if (speed.x < 0) {
-        speed.x += frictionVal;
+        speed.x += friction;
       }
     }
-  }
-  if (Math.abs(speed[key]) < 0.05) {
-    speed[key] = 0;
-  } else if (speed[key] > 0) {
-    speed[key] += -frictionVal;
-  } else if (speed[key] < 0) {
-    speed[key] += frictionVal;
   }
 
   function keyAction(bool) {
@@ -242,7 +237,6 @@
 
   function main() {
     move();
-    friction();
     stateChange();
     runTest();
   }
