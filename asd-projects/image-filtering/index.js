@@ -14,14 +14,13 @@ $(document).ready(function () {
 function resetAndRender() {
   reset();
   render($("#display"), image);
+  applyFilter();
 }
 
 // this function applies the filters to the image and is where you should call
 // all of your apply functions
 function applyAndRender() {
   // Multiple TODOs: Call your apply function(s) here
-
-  
 
   // do not change the below line of code
   render($("#display"), image);
@@ -32,18 +31,21 @@ function applyAndRender() {
 /////////////////////////////////////////////////////////
 
 // TODO 1, 2, 3 & 5: Create the applyFilter function here
-
+function applyFilter() {
+  for (j = 0; j < image.length; j++) {
+    for (i = 0; i < image[j].length; i++) {
+      let pixel = pixel[j][i];
+      let pixelArray = rgbStringToArray(pixel);
+    }
+  }
+}
 
 // TODO 9 Create the applyFilterNoBackground function
 
-
 // TODO 6: Create the keepInBounds function
-
 
 // TODO 4: Create reddify filter function
 
-
 // TODO 7 & 8: Create more filter functions
-
 
 // CHALLENGE code goes below here
