@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>recursion</title>
+  </head>
+  <body></body>
+</html>
+<script>
+  class Node {
+    constructor(value) {
+      this.value = value;
+      this.left = null;
+      this.right = null;
+    }
+  }
+
+  function createRandomBinaryTree(length) {
+    // 1. Create a sorted array from 1 to length
+    let nums = Array.from({ length }, (_, i) => i + 1);
+
+    // 2. Fisher-Yates Shuffle to randomize the order
+    for (let i = nums.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [nums[i], nums[j]] = [nums[j], nums[i]];
+    }
+
+    // 3. Insert shuffled numbers into the tree
+    let root = new Node(nums[0]);
+
+    function insertNode(current, value) {
+      if (value < current.value) {
+        if (!current.left) current.left = new Node(value);
+        else insertNode(current.left, value);
+      } else {
+        if (!current.right) current.right = new Node(value);
+        else insertNode(current.right, value);
+      }
+    }
+
+    for (let i = 1; i < nums.length; i++) {
+      insertNode(root, nums[i]);
+    }
+
+    return root;
+  }
+
+  const myTree = createRandomBinaryTree(20);
+
+  function findNumber(num, tree) {
+    if (myTree.value === num) {
+      return tree;
+    }
+    let answer = findNumber(num, tree.left);
+  }
+</script>
