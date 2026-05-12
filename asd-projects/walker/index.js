@@ -118,13 +118,13 @@ function runProgram() {
     if (walker.x === 0) {
       walker.x -= walker.speedX;
     }
-    if (walker.x === $("#board").width()) {
+    if (walker.x === $("#board").width() - 45) {
       walker.x -= walker.speedX;
     }
     if (walker.y === 0) {
       walker.y -= walker.speedY;
     }
-    if (walker.y === $("#board").height()) {
+    if (walker.y === $("#board").height() - 45) {
       walker.y -= walker.speedY;
     }
   }
