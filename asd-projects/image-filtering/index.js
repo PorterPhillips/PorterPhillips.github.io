@@ -42,7 +42,7 @@ function applyFilter(filterFunction) {
       // This is where I’ll modify the color values later
       filterFunction(pixelArray);
       let updatedPixel = rgbArrayToString(pixelArray);
-      image[i][j] = updatedPixel.RED;
+      image[i][j] = updatedPixel;
     }
   }
 }
