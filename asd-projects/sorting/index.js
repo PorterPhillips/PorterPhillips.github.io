@@ -14,11 +14,11 @@ The CSS ids you will work with are:
 ///////////////////////////////////////////////////////////////////////
 
 // TODO 2: Implement bubbleSort
-async function buubleSort(array) {
-  for (i = 0; i < array.length - 1; i++) {
-    for (j = length - 1; (j = i + 1); i++) {
-      if (array[j] < array[i]) {
-        swap(array, i, j);
+async function bubbleSort(array) {
+  for (i = 0; i < array.length; i++) {
+    for (j = array.length - 1; j > i; j--) {
+      if (array[j].value < array[j - 1].value) {
+        swap(array, j, j - 1);
         updateCounter(bubbleCounter);
         await sleep();
       }
@@ -29,26 +29,25 @@ async function buubleSort(array) {
 // TODO 3: Implement quickSort
 async function quickSort(array, left, right) {
   if (right - left > 0) {
-    return;
-  } else {
     let index = await partition(array, left, right);
     if (left < index - 1) {
       await quickSort(array, left, index - 1);
     }
-    if (right > index) {
+    if (index < right) {
       await quickSort(array, index, right);
     }
   }
+  return;
 }
 
 // TODOs 4 & 5: Implement partition
 async function partition(array, left, right) {
-  pivot = array[Math.floor((right + left) / 2)].value;
-  while (array[left] < array[right]) {
-    while (array[left] < pivot) {
+  let pivot = array[Math.floor((right + left) / 2)].value;
+  while (array[left].value < array[right].value) {
+    while (array[left].value < pivot) {
       left++;
     }
-    while (array[right] > pivot) {
+    while (array[right].value > pivot) {
       right--;
     }
     if (left < right) {
@@ -65,6 +64,7 @@ function swap(array, i, j) {
   let temp = array[i];
   array[i] = array[j];
   array[j] = temp;
+  drawSwap(array, j, i);
 }
 
 ///////////////////////////////////////////////////////////////////////
